@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\App\JobExecuteController;
 use App\Http\Controllers\Api\App\ClientCompanyController;
 use App\Http\Controllers\Api\App\ClientPortalAccountController;
 use App\Http\Controllers\Api\App\ClientPortalCredentialController;
+use App\Http\Controllers\Api\Robot\RobotViewerController;
 
 
 
@@ -45,7 +46,10 @@ Route::prefix('v1/app')->group(function () {
         Route::post('/portal-accounts', [ClientPortalAccountController::class, 'store']);
         Route::post('/portal-credentials', [ClientPortalCredentialController::class, 'store']);
 
-
-     
     });
+});
+
+// Robot Viewer Proxy (requiere auth)
+Route::prefix('v1/robot')->middleware(['auth:sanctum', 'app_user', 'device_bound'])->group(function () {
+    Route::get('/viewer/{session_id}', [RobotViewerController::class, 'viewer']);
 });
