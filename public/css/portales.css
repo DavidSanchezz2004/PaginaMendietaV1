@@ -1,0 +1,231 @@
+/* =================================================
+   MENDIETA UI — EMPRESAS: PORTALES ACTIVOS
+================================================= */
+:root {
+    --m-primary: #053d38;
+    --m-primary-2: #34675c;
+    --m-accent: #a3ccaa;
+
+    --panel: #ffffff;
+    --line: #e3e8ec;
+
+    --text: rgba(15, 23, 42, 0.88);
+    --muted: rgba(15, 23, 42, 0.62);
+
+    --radius: 16px;
+    --radius-sm: 12px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.page {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 22px 18px 44px;
+    font-family: Poppins, system-ui;
+}
+
+.top {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 14px;
+}
+
+.page h1 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: -0.01em;
+    color: rgba(5, 61, 56, 0.96);
+}
+
+.sub {
+    margin-top: 6px;
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 650;
+}
+
+.mono {
+    font-variant-numeric: tabular-nums;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* =================================================
+   BUTTONS
+================================================= */
+.btn {
+    height: 40px;
+    padding: 0 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(226, 232, 240, 0.95);
+    background: #fff;
+    color: rgba(15, 23, 42, 0.84);
+    font-weight: 900;
+    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.12s ease, background 0.15s ease,
+        border-color 0.15s ease;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    border-color: rgba(5, 61, 56, 0.22);
+    background: rgba(5, 61, 56, 0.04);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn.primary {
+    background: var(--m-primary);
+    border-color: rgba(5, 61, 56, 0.55);
+    color: #fff;
+}
+
+.btn.primary:hover {
+    background: rgba(5, 61, 56, 0.94);
+}
+
+/* =================================================
+   PANEL
+================================================= */
+.panel {
+    background: var(--panel);
+    border: 1px solid rgba(226, 232, 240, 0.95);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 12px 22px rgba(2, 6, 23, 0.05);
+}
+
+.panel-narrow {
+    max-width: 720px;
+}
+
+.panel-head {
+    padding: 14px 16px;
+    border-bottom: 1px solid rgba(226, 232, 240, 0.95);
+    background: linear-gradient(180deg, rgba(5, 61, 56, 0.04), transparent);
+}
+
+.panel-title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 900;
+    color: rgba(15, 23, 42, 0.92);
+}
+
+.panel-sub {
+    margin: 4px 0 0;
+    font-size: 12.5px;
+    color: rgba(15, 23, 42, 0.6);
+    font-weight: 650;
+}
+
+.form-pad {
+    padding: 18px;
+}
+
+/* =================================================
+   CHECKLIST (portales)
+================================================= */
+.check-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 12px;
+    border: 1px solid rgba(226, 232, 240, 0.95);
+    border-radius: 14px;
+    background: #fff;
+    margin: 0 0 10px;
+    transition: border-color 0.15s ease, background 0.15s ease,
+        transform 0.12s ease;
+}
+
+.check-row:hover {
+    border-color: rgba(5, 61, 56, 0.22);
+    background: rgba(5, 61, 56, 0.03);
+    transform: translateY(-1px);
+}
+
+.check-row b {
+    color: rgba(15, 23, 42, 0.92);
+    font-weight: 900;
+    display: block;
+    line-height: 1.2;
+}
+
+.check-row .hint {
+    display: block;
+    margin-top: 4px;
+    font-size: 12.5px;
+    color: rgba(15, 23, 42, 0.6);
+    font-weight: 650;
+}
+
+.check-row input[type="checkbox"] {
+    margin-top: 2px;
+    width: 18px;
+    height: 18px;
+    accent-color: var(--m-primary);
+    flex: 0 0 auto;
+}
+
+/* separador final antes del botón */
+.check-row.last {
+    margin-bottom: 16px;
+}
+
+.form-actions {
+    margin-top: 14px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* =================================================
+   RESPONSIVE
+================================================= */
+@media (max-width: 900px) {
+    .page {
+        padding: 16px 14px 28px;
+    }
+
+    .top {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .panel-narrow {
+        max-width: none;
+    }
+}
+
+@media (max-width: 560px) {
+    .page h1 {
+        font-size: 18px;
+        line-height: 1.2;
+    }
+
+    .form-pad {
+        padding: 14px;
+    }
+
+    .btn.primary {
+        width: 100%;
+        height: 44px;
+    }
+
+    .check-row {
+        padding: 12px 10px;
+    }
+}

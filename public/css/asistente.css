@@ -1,0 +1,509 @@
+/* ====== CHATGPT-LIKE LAYOUT (Mendieta light) ====== */
+.ai-shell {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 18px 16px 0;
+    font-family: Poppins, system-ui;
+    min-height: calc(100vh - 80px);
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+}
+
+.ai-empty {
+    flex: 1;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    padding: 28px 10px 10px;
+}
+
+.ai-empty-avatar {
+    width: 74px;
+    height: 74px;
+    border-radius: 24px;
+    display: grid;
+    place-items: center;
+    background: radial-gradient(
+            60px 60px at 35% 25%,
+            rgba(163, 204, 170, 0.35),
+            transparent 60%
+        ),
+        linear-gradient(135deg, rgba(5, 61, 56, 0.1), rgba(52, 103, 92, 0.08));
+    border: 1px solid rgba(5, 61, 56, 0.14);
+    box-shadow: 0 18px 32px rgba(2, 6, 23, 0.08);
+}
+.ai-empty-avatar svg {
+    width: 34px;
+    height: 34px;
+    stroke: rgba(5, 61, 56, 0.95);
+}
+
+.ai-empty-title {
+    margin: 14px 0 6px;
+    font-size: 28px;
+    font-weight: 950;
+    color: rgba(5, 61, 56, 0.96);
+    letter-spacing: -0.02em;
+}
+.ai-empty-sub {
+    margin: 0 0 16px;
+    font-size: 14.5px;
+    font-weight: 750;
+    color: rgba(15, 23, 42, 0.62);
+    max-width: 560px;
+}
+
+.ai-suggest {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 760px;
+}
+.ai-suggest .chip {
+    border: 1px solid rgba(2, 44, 40, 0.12);
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 999px;
+    padding: 10px 12px;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 0 12px 22px rgba(2, 6, 23, 0.05);
+}
+.ai-suggest .chip:hover {
+    transform: translateY(-1px);
+}
+
+.ai-chatwrap {
+    flex: 1;
+    min-height: 220px;
+}
+
+.ai-chat {
+    height: 100%;
+    overflow: auto;
+    padding: 10px 2px 160px; /* espacio para composer sticky */
+}
+
+/* Mensajes estilo “texto + pill usuario” */
+.msg {
+    margin: 14px 0;
+}
+.msg.user {
+    display: flex;
+    justify-content: flex-end;
+}
+.msg.user .pill {
+    max-width: 70%;
+    padding: 10px 14px;
+    border-radius: 999px;
+    color: #fff;
+    font-weight: 850;
+    background: linear-gradient(
+        135deg,
+        rgba(5, 61, 56, 0.96),
+        rgba(52, 103, 92, 0.96)
+    );
+    box-shadow: 0 14px 28px rgba(5, 61, 56, 0.18);
+    white-space: pre-wrap;
+}
+
+.msg.bot .botblock {
+    max-width: 820px;
+    padding: 0 2px;
+}
+
+.bothead {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+.bothead .tag {
+    font-size: 12px;
+    font-weight: 1000;
+    color: rgba(5, 61, 56, 0.96);
+    background: rgba(163, 204, 170, 0.2);
+    border: 1px solid rgba(5, 61, 56, 0.12);
+    padding: 5px 10px;
+    border-radius: 999px;
+}
+.bothead .metric {
+    font-size: 12.5px;
+    font-weight: 850;
+    color: rgba(15, 23, 42, 0.62);
+}
+
+.bottext {
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.7;
+    color: rgba(15, 23, 42, 0.9);
+    white-space: pre-wrap;
+}
+
+/* Fuentes pills */
+.sources {
+    margin-top: 12px;
+    border-top: 1px dashed rgba(2, 44, 40, 0.16);
+    padding-top: 10px;
+}
+.sources summary {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    font-weight: 950;
+    color: rgba(15, 23, 42, 0.72);
+}
+.sources summary::-webkit-details-marker {
+    display: none;
+}
+.sources .hint {
+    font-weight: 900;
+    font-size: 12px;
+    color: rgba(5, 61, 56, 0.88);
+    background: rgba(163, 204, 170, 0.18);
+    border: 1px solid rgba(5, 61, 56, 0.1);
+    padding: 4px 8px;
+    border-radius: 999px;
+}
+.src-wrap {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.src-pill {
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+    padding: 8px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(2, 44, 40, 0.12);
+    background: rgba(255, 255, 255, 0.86);
+    font-weight: 900;
+    color: rgba(15, 23, 42, 0.72);
+}
+.src-pill .mini {
+    color: rgba(15, 23, 42, 0.52);
+    font-weight: 950;
+}
+.src-more {
+    font-weight: 900;
+    color: rgba(15, 23, 42, 0.55);
+}
+
+/* Typing reutiliza tus dots, solo centrado */
+.typing {
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    font-weight: 900;
+    color: rgba(15, 23, 42, 0.58);
+    font-size: 13px;
+}
+
+/* Composer sticky abajo */
+.ai-composer {
+    position: sticky;
+    bottom: 0;
+    background: rgba(243, 246, 246, 0.82);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(2, 44, 40, 0.1);
+    padding: 12px 0 10px;
+}
+
+.composer-inner {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+    padding: 0 0;
+}
+
+.ai-shell textarea#q {
+    width: 100%;
+    resize: none;
+    min-height: 52px;
+    max-height: 140px;
+    border-radius: 18px;
+    border: 1px solid rgba(2, 44, 40, 0.12);
+    padding: 14px 14px;
+    font-size: 15px;
+    font-weight: 700;
+    outline: none;
+    background: rgba(255, 255, 255, 0.92);
+    color: rgba(15, 23, 42, 0.9);
+}
+.ai-shell textarea#q:focus {
+    border-color: rgba(5, 61, 56, 0.4);
+    box-shadow: 0 0 0 4px rgba(163, 204, 170, 0.28);
+}
+
+.ai-shell .send {
+    width: 52px;
+    height: 52px;
+    border-radius: 18px;
+}
+
+.ai-helper {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 🔥 CLAVE */
+    gap: 12px;
+    /* background: #ffffff; */
+    text-align: center;
+    position: relative; /* para anclar botones */
+}
+
+/* Nota inferior */
+.ai-helper .ai-footnote {
+    font-size: 12.5px;
+    font-weight: 750;
+    color: rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+/* Anim suave */
+.pop-in {
+    animation: pop 0.22s ease-out;
+}
+@keyframes pop {
+    from {
+        transform: translateY(4px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 720px) {
+    .ai-shell {
+        padding: 14px 12px 0;
+    }
+    .ai-empty-title {
+        font-size: 22px;
+    }
+    .ai-empty-sub {
+        font-size: 13.5px;
+    }
+
+    .ai-chat {
+        padding-bottom: 170px;
+    }
+
+    .msg.user .pill {
+        max-width: 92%;
+    }
+
+    .bottext {
+        font-size: 14px;
+    }
+
+    .ai-shell textarea#q {
+        min-height: 48px;
+        font-size: 14px;
+        border-radius: 16px;
+    }
+    .ai-shell .send {
+        width: 48px;
+        height: 48px;
+        border-radius: 16px;
+    }
+
+    .src-pill {
+        width: 100%;
+        justify-content: space-between;
+        border-radius: 14px;
+    }
+}
+
+@media (max-width: 420px) {
+    .ai-empty-avatar {
+        width: 66px;
+        height: 66px;
+        border-radius: 22px;
+    }
+    .ai-empty-title {
+        font-size: 20px;
+    }
+    .ai-suggest .chip {
+        width: 100%;
+        text-align: center;
+    }
+}
+/* ===============================
+   WHITE MODE – MENDIETA CLEAN
+   =============================== */
+
+/* Fondo general blanco real */
+.ai-shell {
+    background: #ffffff;
+}
+
+/* Empty state */
+.ai-empty {
+    background: #ffffff;
+}
+
+/* Avatar del asistente: más limpio */
+.ai-empty-avatar {
+    background: #ffffff;
+    border: 1px solid rgba(5, 61, 56, 0.14);
+    box-shadow: 0 12px 22px rgba(2, 6, 23, 0.06);
+}
+
+/* Título principal */
+.ai-empty-title {
+    color: #053d38;
+}
+
+/* Subtítulo */
+.ai-empty-sub {
+    color: rgba(15, 23, 42, 0.6);
+}
+
+/* Chips blancos (no grises) */
+.ai-suggest .chip {
+    background: #ffffff;
+    border: 1px solid rgba(2, 44, 40, 0.14);
+    box-shadow: 0 10px 18px rgba(2, 6, 23, 0.06);
+    color: rgba(15, 23, 42, 0.85);
+}
+.ai-suggest .chip:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 26px rgba(2, 6, 23, 0.08);
+}
+
+/* Chat fondo blanco */
+.ai-chat {
+    background: #ffffff;
+}
+
+/* Texto del bot */
+.bottext {
+    color: rgba(15, 23, 42, 0.92);
+}
+
+/* Composer sticky: BLANCO, sin glass */
+.ai-composer {
+    background: #ffffff;
+    backdrop-filter: none;
+    border-top: 1px solid rgba(2, 44, 40, 0.12);
+}
+
+/* Textarea blanco puro */
+.ai-shell textarea#q {
+    background: #ffffff;
+    border: 1px solid rgba(2, 44, 40, 0.18);
+}
+.ai-shell textarea#q::placeholder {
+    color: rgba(15, 23, 42, 0.45);
+}
+
+/* Footer helper */
+.ai-helper {
+    /* background: #ffffff; */
+}
+
+/* Nota inferior */
+.ai-helper .ai-footnote {
+    color: rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+/* Pills del usuario (igual, pero más limpias) */
+.msg.user .pill {
+    box-shadow: 0 10px 22px rgba(5, 61, 56, 0.16);
+}
+
+/* Fuentes pills blancas */
+.src-pill {
+    background: #ffffff;
+    border: 1px solid rgba(2, 44, 40, 0.14);
+}
+
+/* Quitar cualquier gris residual */
+.ai-shell *,
+.ai-empty *,
+.ai-chatwrap * {
+    background-clip: padding-box;
+}
+/* ============================
+   SEND BUTTON FIX + BEAUTY
+   (pegalo al final)
+   ============================ */
+
+/* Botón enviar: gradient + borde + glow */
+.ai-shell .send {
+    display: grid;
+    place-items: center;
+    border: 0;
+    cursor: pointer;
+    background: linear-gradient(135deg, #053d38, #34675c);
+    box-shadow: 0 16px 30px rgba(5, 61, 56, 0.18),
+        0 0 0 1px rgba(5, 61, 56, 0.18) inset;
+    transition: transform 0.12s ease, filter 0.12s ease, box-shadow 0.12s ease;
+}
+
+.ai-shell .send:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.03);
+    box-shadow: 0 18px 34px rgba(5, 61, 56, 0.22),
+        0 0 0 1px rgba(5, 61, 56, 0.22) inset;
+}
+
+.ai-shell .send:active {
+    transform: translateY(0);
+}
+
+/* ✅ ESTE ES EL FIX: el svg no se veía */
+.ai-shell .send svg {
+    width: 20px;
+    height: 20px;
+    stroke: #ffffff !important; /* fuerza visible */
+    fill: none !important;
+    stroke-width: 2.4; /* un poco más pro */
+}
+
+/* Si por alguna razón el navegador le pone fill, lo neutralizas */
+.ai-shell .send svg path {
+    stroke: #ffffff !important;
+    fill: none !important;
+}
+
+/* Cuando está deshabilitado */
+.ai-shell .send:disabled {
+    cursor: not-allowed;
+    opacity: 0.65;
+    filter: grayscale(0.2);
+    transform: none;
+    box-shadow: 0 10px 18px rgba(2, 6, 23, 0.06),
+        0 0 0 1px rgba(2, 44, 40, 0.12) inset;
+}
+
+/* Textarea: más bonito (sutil) */
+.ai-shell textarea#q {
+    border-radius: 18px;
+    background: linear-gradient(180deg, #ffffff, rgba(255, 255, 255, 0.96));
+    box-shadow: 0 10px 18px rgba(2, 6, 23, 0.04);
+}
+
+.ai-shell textarea#q:focus {
+    box-shadow: 0 0 0 4px rgba(163, 204, 170, 0.28),
+        0 14px 22px rgba(2, 6, 23, 0.06);
+}
+
+/* Responsive: ícono un pelín más chico */
+@media (max-width: 720px) {
+    .ai-shell .send svg {
+        width: 19px;
+        height: 19px;
+    }
+}

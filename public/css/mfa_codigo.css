@@ -1,0 +1,342 @@
+/* =================================================
+   MFA (Standalone) — Mendieta Security UI
+================================================= */
+:root {
+    --m-primary: #053d38;
+    --m-primary-2: #34675c;
+    --m-accent: #a3ccaa;
+    --m-ink: #13140e;
+
+    --bg: #f3f6f6;
+    --panel: #ffffff;
+    --line: rgba(2, 6, 23, 0.1);
+
+    --text: rgba(15, 23, 42, 0.9);
+    --muted: rgba(15, 23, 42, 0.62);
+
+    --shadow: 0 16px 32px rgba(2, 6, 23, 0.08);
+    --shadow-soft: 0 10px 22px rgba(2, 6, 23, 0.06);
+
+    --radius: 18px;
+    --radius-sm: 14px;
+}
+
+* {
+    box-sizing: border-box;
+}
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Poppins, system-ui, -apple-system, Segoe UI, Roboto, Arial,
+        sans-serif;
+    background: radial-gradient(
+            900px 520px at 20% 10%,
+            rgba(163, 204, 170, 0.18),
+            transparent 60%
+        ),
+        radial-gradient(
+            850px 520px at 85% 25%,
+            rgba(52, 103, 92, 0.14),
+            transparent 60%
+        ),
+        linear-gradient(180deg, #f7fbfa, var(--bg));
+    color: var(--text);
+}
+
+/* =================================================
+   PAGE SHELL
+================================================= */
+.page {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 26px 18px 54px;
+}
+
+.top {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 14px;
+}
+
+h1 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: rgba(5, 61, 56, 0.96);
+    line-height: 1.15;
+}
+
+.sub {
+    margin-top: 8px;
+    font-size: 13px;
+    font-weight: 650;
+    color: var(--muted);
+    line-height: 1.45;
+}
+
+/* =================================================
+   PANEL / CARD
+================================================= */
+.panel {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+.panel-body {
+    padding: 18px;
+}
+
+.panel-body h3 {
+    margin: 18px 0 10px;
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(15, 23, 42, 0.72);
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background: rgba(2, 6, 23, 0.08);
+    margin: 18px 0;
+}
+
+/* =================================================
+   QR BOX
+================================================= */
+.qr-wrap {
+    display: flex;
+    justify-content: center;
+    margin: 12px 0 6px;
+}
+
+.qr-box {
+    background: #fff;
+    border: 1px solid rgba(2, 6, 23, 0.1);
+    border-radius: 18px;
+    padding: 14px;
+    box-shadow: var(--shadow-soft);
+    position: relative;
+}
+
+.qr-box::before {
+    content: "";
+    position: absolute;
+    inset: -18px;
+    background: radial-gradient(
+        circle,
+        rgba(163, 204, 170, 0.2),
+        transparent 60%
+    );
+    filter: blur(18px);
+    z-index: -1;
+    border-radius: 999px;
+}
+
+/* si el SVG QR es gigante, lo contenemos */
+.qr-box svg {
+    display: block;
+    width: 220px;
+    height: 220px;
+    max-width: 100%;
+}
+
+/* =================================================
+   FORM
+================================================= */
+.lbl {
+    display: block;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 900;
+    color: rgba(15, 23, 42, 0.55);
+    margin: 12px 0 8px;
+}
+
+.inp {
+    width: 100%;
+    height: 46px;
+    padding: 0 14px;
+    border-radius: 14px;
+    border: 1px solid rgba(2, 6, 23, 0.1);
+    background: #fff;
+    color: var(--text);
+    font-size: 15px;
+    font-weight: 800;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease,
+        background 0.15s ease;
+}
+
+.inp:focus {
+    border-color: rgba(5, 61, 56, 0.5);
+    box-shadow: 0 0 0 4px rgba(163, 204, 170, 0.3);
+    background: rgba(5, 61, 56, 0.02);
+}
+
+.mono {
+    font-variant-numeric: tabular-nums;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    letter-spacing: 0.28em; /* look OTP */
+}
+
+.inp::placeholder {
+    color: rgba(15, 23, 42, 0.35);
+    letter-spacing: 0.12em;
+}
+
+/* =================================================
+   BUTTONS
+================================================= */
+.btn {
+    height: 44px;
+    padding: 0 16px;
+    border-radius: 14px;
+    border: 1px solid rgba(2, 6, 23, 0.1);
+    background: #fff;
+    color: rgba(15, 23, 42, 0.84);
+    font-weight: 900;
+    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.12s ease, background 0.15s ease,
+        border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    border-color: rgba(5, 61, 56, 0.22);
+    background: rgba(5, 61, 56, 0.04);
+    box-shadow: 0 10px 22px rgba(2, 6, 23, 0.06);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn.primary {
+    border: 1px solid rgba(5, 61, 56, 0.38);
+    color: #fff;
+    background: linear-gradient(135deg, var(--m-primary), var(--m-primary-2));
+    box-shadow: 0 18px 40px rgba(5, 61, 56, 0.22);
+}
+
+.btn.primary:hover {
+    filter: brightness(1.02);
+    box-shadow: 0 22px 48px rgba(5, 61, 56, 0.26);
+}
+
+/* actions row */
+.actions {
+    margin-top: 14px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* =================================================
+   ERRORS
+================================================= */
+.err {
+    margin-top: 8px;
+    padding: 10px 12px;
+    border-radius: 14px;
+    border: 1px solid rgba(185, 28, 28, 0.18);
+    background: rgba(185, 28, 28, 0.06);
+    color: rgba(185, 28, 28, 0.95);
+    font-weight: 800;
+    font-size: 13px;
+}
+
+/* =================================================
+   RECOVERY CODES
+================================================= */
+.recovery-title {
+    margin: 0 0 8px;
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(146, 64, 14, 0.95);
+}
+
+.recovery-note {
+    margin: 0 0 12px;
+    color: rgba(15, 23, 42, 0.7);
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+.recovery-grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 10px;
+}
+
+.recovery-grid li {
+    background: #fff;
+    border: 1px solid rgba(2, 6, 23, 0.1);
+    border-radius: 14px;
+    padding: 10px 12px;
+    text-align: center;
+    font-weight: 900;
+    letter-spacing: 0.2em;
+    box-shadow: 0 10px 18px rgba(2, 6, 23, 0.05);
+}
+
+.danger-note {
+    margin-top: 12px;
+    padding: 10px 12px;
+    border-radius: 14px;
+    border: 1px solid rgba(245, 158, 11, 0.22);
+    background: rgba(245, 158, 11, 0.08);
+    color: rgba(146, 64, 14, 0.95);
+    font-weight: 900;
+    font-size: 13px;
+}
+
+/* =================================================
+   RESPONSIVE
+================================================= */
+@media (max-width: 520px) {
+    .page {
+        padding: 16px 12px 30px;
+    }
+    h1 {
+        font-size: 18px;
+    }
+    .panel-body {
+        padding: 14px;
+    }
+    .qr-box svg {
+        width: 200px;
+        height: 200px;
+    }
+    .btn {
+        width: 100%;
+    }
+    .actions {
+        flex-direction: column;
+    }
+    .recovery-grid {
+        grid-template-columns: 1fr;
+    }
+}

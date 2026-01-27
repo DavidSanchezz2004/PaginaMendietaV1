@@ -1,0 +1,21 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class AuditLog extends Model
+{
+    protected $fillable = [
+        'user_id',
+        'event',
+        'route',
+        'ip',
+        'user_agent',
+        'meta',
+    ];
+
+    protected $casts = [
+        'meta' => 'array',
+    ];
+}

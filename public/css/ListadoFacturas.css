@@ -1,0 +1,224 @@
+/* =========================================================
+   FACTURAS — LISTADO (MENDIETA)
+   - Look profesional tipo “panel”
+   - Tabla limpia con sticky header
+   - Responsive: tabla en modo “cards” en móvil
+========================================================= */
+
+:root {
+    --m-primary: #053d38;
+    --m-primary-2: #34675c;
+    --m-accent: #a3ccaa;
+
+    --bg: #f3f6f6;
+    --panel: #ffffff;
+    --line: #e3e8ec;
+
+    --text: rgba(15, 23, 42, 0.88);
+    --muted: rgba(15, 23, 42, 0.6);
+
+    --ok: #0f766e;
+    --warn: #b45309;
+    --bad: #b91c1c;
+
+    --r: 16px;
+    --r2: 12px;
+}
+
+/* ===== layout base ===== */
+.card {
+    background: var(--panel);
+    border: 1px solid rgba(226, 232, 240, 0.95);
+    border-radius: var(--r);
+    box-shadow: 0 12px 26px rgba(2, 6, 23, 0.05);
+    padding: 18px;
+    font-family: Poppins, system-ui;
+    color: var(--text);
+}
+
+/* ===== header ===== */
+.card h2 {
+    font-size: 18px;
+    font-weight: 900;
+    letter-spacing: -0.01em;
+    color: rgba(5, 61, 56, 0.96);
+}
+
+.muted {
+    color: var(--muted);
+    font-weight: 600;
+    font-size: 13px;
+}
+
+/* ===== buttons (compat con tu layout) ===== */
+.btn {
+    height: 40px;
+    padding: 0 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(226, 232, 240, 0.95);
+    background: #fff;
+    color: rgba(15, 23, 42, 0.86);
+    font-weight: 800;
+    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.12s ease, background 0.15s ease,
+        border-color 0.15s ease;
+}
+
+.btn:hover {
+    border-color: rgba(5, 61, 56, 0.25);
+    background: rgba(5, 61, 56, 0.04);
+    transform: translateY(-1px);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-primary {
+    background: var(--m-primary);
+    border-color: rgba(5, 61, 56, 0.55);
+    color: #fff;
+}
+.btn-primary:hover {
+    background: #064a43;
+    border-color: rgba(5, 61, 56, 0.75);
+}
+
+/* ===== table ===== */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 980px; /* desktop */
+}
+
+.table thead th {
+    text-align: left;
+    font-size: 11.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(15, 23, 42, 0.55);
+    font-weight: 900;
+    padding: 12px 14px;
+    position: sticky;
+    top: 0;
+    background: #fff;
+    z-index: 1;
+    border-bottom: 1px solid rgba(226, 232, 240, 0.95);
+}
+
+.table tbody td {
+    padding: 14px 14px;
+    border-top: 1px solid rgba(226, 232, 240, 0.75);
+    font-size: 13.5px;
+    font-weight: 650;
+    color: rgba(15, 23, 42, 0.88);
+    vertical-align: middle;
+}
+
+.table tbody tr:hover {
+    background: rgba(5, 61, 56, 0.03);
+}
+
+/* ===== status pills (opcional: por si luego cambias emojis a badges) ===== */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    height: 26px;
+    padding: 0 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 900;
+    border: 1px solid rgba(226, 232, 240, 0.95);
+    background: #fff;
+}
+
+.badge.ok {
+    border-color: rgba(5, 61, 56, 0.22);
+    background: rgba(5, 61, 56, 0.06);
+    color: rgba(5, 61, 56, 0.95);
+}
+.badge.warn {
+    border-color: rgba(245, 158, 11, 0.28);
+    background: rgba(245, 158, 11, 0.1);
+    color: rgba(146, 64, 14, 0.95);
+}
+.badge.bad {
+    border-color: rgba(185, 28, 28, 0.22);
+    background: rgba(185, 28, 28, 0.08);
+    color: rgba(185, 28, 28, 0.95);
+}
+
+/* ===== pagination ===== */
+.pagination {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+.pagination .page-link {
+    border-radius: 12px !important;
+}
+
+/* =========================================================
+   RESPONSIVE
+   - en <= 900: padding menor
+   - en <= 680: tabla se vuelve “cards” (sin scroll)
+========================================================= */
+@media (max-width: 900px) {
+    .card {
+        padding: 14px;
+    }
+    .table {
+        min-width: 860px;
+    }
+}
+
+@media (max-width: 680px) {
+    /* Quitar el “min-width” y convertir filas en tarjetas */
+    .table {
+        min-width: 0;
+        width: 100%;
+    }
+
+    .table thead {
+        display: none;
+    }
+
+    .table tbody,
+    .table tr,
+    .table td {
+        display: block;
+        width: 100%;
+    }
+
+    .table tr {
+        border: 1px solid rgba(226, 232, 240, 0.95);
+        border-radius: 14px;
+        padding: 10px 12px;
+        margin-bottom: 10px;
+        background: #fff;
+        box-shadow: 0 8px 18px rgba(2, 6, 23, 0.04);
+    }
+
+    .table tbody td {
+        border: 0;
+        padding: 8px 0;
+        font-size: 13.5px;
+    }
+
+    .table tbody td::before {
+        content: attr(data-label);
+        display: block;
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-weight: 900;
+        color: rgba(15, 23, 42, 0.5);
+        margin-bottom: 4px;
+    }
+}

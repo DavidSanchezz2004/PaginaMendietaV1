@@ -1,0 +1,168 @@
+/* ==============================
+   BASE / PAGE
+================================ */
+:root {
+    --m-primary: #053d38;
+    --line: #e3e8ec;
+    --text: rgba(15, 23, 42, 0.88);
+    --muted: rgba(15, 23, 42, 0.62);
+}
+
+.page {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 22px 18px 44px;
+    font-family: Poppins, system-ui;
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+h1 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: -0.01em;
+    color: rgba(5, 61, 56, 0.96);
+}
+
+.sub {
+    margin-top: 6px;
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 650;
+}
+
+/* ==============================
+   PANEL / CARD
+================================ */
+.panel {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 12px 22px rgba(2, 6, 23, 0.05);
+}
+
+.panel-body {
+    padding: 18px;
+}
+
+/* ==============================
+   FORM
+================================ */
+.lbl {
+    display: block;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: rgba(15, 23, 42, 0.55);
+    margin-bottom: 8px;
+}
+
+.inp {
+    width: 100%;
+    height: 44px;
+    padding: 0 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(226, 232, 240, 0.95);
+    background: #fff;
+    color: var(--text);
+    font-size: 15px;
+    font-weight: 800;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease,
+        background 0.15s ease;
+}
+
+.inp:focus {
+    border-color: rgba(5, 61, 56, 0.45);
+    box-shadow: 0 0 0 4px rgba(5, 61, 56, 0.12);
+    background: rgba(5, 61, 56, 0.02);
+}
+
+.mono {
+    font-variant-numeric: tabular-nums;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    letter-spacing: 0.24em; /* look de código */
+}
+
+/* placeholder (opcional) */
+.inp::placeholder {
+    color: rgba(15, 23, 42, 0.35);
+    letter-spacing: 0.08em;
+}
+
+/* ==============================
+   BUTTONS
+================================ */
+.btn {
+    height: 40px;
+    padding: 0 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(226, 232, 240, 0.95);
+    background: #fff;
+    color: rgba(15, 23, 42, 0.84);
+    font-weight: 900;
+    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.12s ease, background 0.15s ease,
+        border-color 0.15s ease;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    border-color: rgba(5, 61, 56, 0.22);
+    background: rgba(5, 61, 56, 0.04);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn.primary {
+    background: var(--m-primary);
+    border-color: rgba(5, 61, 56, 0.55);
+    color: #fff;
+}
+
+.btn.primary:hover {
+    background: rgba(5, 61, 56, 0.94);
+}
+
+/* ==============================
+   RESPONSIVE
+================================ */
+@media (max-width: 520px) {
+    .page {
+        padding: 14px 12px 26px;
+    }
+
+    h1 {
+        font-size: 18px;
+    }
+
+    .panel-body {
+        padding: 14px;
+    }
+
+    /* botones a full ancho en móvil */
+    form > div[style*="display:flex"] {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+        height: 42px;
+    }
+}

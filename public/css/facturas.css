@@ -1,0 +1,388 @@
+/* =========================================================
+   FACTURADOR (SUNAT) — MENDIETA UI (COMPACTO / OFICINA)
+   Encapsulado con .feasy para no chocar con Bootstrap/Tailwind
+========================================================= */
+:root {
+    --m-primary: #053d38;
+    --m-primary-2: #34675c;
+    --m-accent: #a3ccaa;
+
+    --bg: #f3f6f6;
+    --panel: #ffffff;
+    --line: #e3e8ec;
+
+    --text: rgba(15, 23, 42, 0.88);
+    --muted: rgba(15, 23, 42, 0.6);
+
+    --ok-bg: rgba(5, 61, 56, 0.08);
+    --ok-bd: rgba(5, 61, 56, 0.22);
+
+    --warn-bg: rgba(245, 158, 11, 0.1);
+    --warn-bd: rgba(245, 158, 11, 0.28);
+
+    --danger-bg: rgba(185, 28, 28, 0.08);
+    --danger-bd: rgba(185, 28, 28, 0.22);
+
+    --r: 14px;
+    --r2: 12px;
+}
+
+.feasy {
+    font-family: Poppins, system-ui;
+    color: var(--text);
+}
+
+/* ====== “sheet” de facturador ====== */
+.feasy.card {
+    max-width: 1180px;
+    margin: 16px auto;
+    background: var(--panel);
+    border: 1px solid rgba(226, 232, 240, 0.95);
+    border-radius: 16px;
+    padding: 14px 14px 16px;
+    box-shadow: 0 10px 18px rgba(2, 6, 23, 0.05);
+}
+
+/* Header compacto, tipo facturador */
+.feasy.card > h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 900;
+    color: rgba(5, 61, 56, 0.96);
+    letter-spacing: -0.01em;
+}
+
+.feasy .muted {
+    margin-top: 6px;
+    font-size: 13px;
+    font-weight: 650;
+    color: var(--muted);
+    line-height: 1.45;
+}
+
+/* ====== Secciones (Documento/Cliente/etc) ====== */
+.feasy h3 {
+    margin: 14px 0 8px;
+    padding-top: 10px;
+    border-top: 1px dashed rgba(226, 232, 240, 0.95);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 900;
+    color: rgba(15, 23, 42, 0.62);
+}
+
+/* ====== GRID (sin usar bootstrap real) ====== */
+.feasy .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.feasy [class^="col-"] {
+    min-width: 0;
+    padding: 0;
+}
+.feasy .col-12 {
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+.feasy .col-6 {
+    flex: 0 0 calc(50% - 5px);
+    max-width: calc(50% - 5px);
+}
+.feasy .col-5 {
+    flex: 0 0 calc(41.666% - 6px);
+    max-width: calc(41.666% - 6px);
+}
+.feasy .col-4 {
+    flex: 0 0 calc(33.333% - 7px);
+    max-width: calc(33.333% - 7px);
+}
+.feasy .col-3 {
+    flex: 0 0 calc(25% - 8px);
+    max-width: calc(25% - 8px);
+}
+.feasy .col-2 {
+    flex: 0 0 calc(16.666% - 9px);
+    max-width: calc(16.666% - 9px);
+}
+
+/* ====== Label / Inputs compactos ====== */
+.feasy label {
+    display: block;
+    margin: 0 0 6px;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(15, 23, 42, 0.55);
+}
+
+.feasy input,
+.feasy select {
+    width: 100%;
+    height: 40px; /* compacto */
+    padding: 0 11px;
+    border-radius: 12px;
+    border: 1px solid rgba(226, 232, 240, 0.95);
+    background: #fff;
+    font-size: 14px;
+    font-weight: 650;
+    color: rgba(15, 23, 42, 0.88);
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease,
+        background 0.15s ease;
+}
+
+.feasy input::placeholder {
+    color: rgba(100, 116, 139, 0.85);
+}
+
+.feasy input:focus,
+.feasy select:focus {
+    border-color: rgba(5, 61, 56, 0.45);
+    box-shadow: 0 0 0 4px rgba(163, 204, 170, 0.25);
+    background: rgba(5, 61, 56, 0.02);
+}
+
+.feasy select {
+    appearance: none;
+    padding-right: 32px;
+    background-image: linear-gradient(
+            45deg,
+            transparent 50%,
+            rgba(15, 23, 42, 0.55) 50%
+        ),
+        linear-gradient(135deg, rgba(15, 23, 42, 0.55) 50%, transparent 50%);
+    background-position: calc(100% - 18px) 16px, calc(100% - 12px) 16px;
+    background-size: 6px 6px, 6px 6px;
+    background-repeat: no-repeat;
+}
+
+.feasy .mono {
+    font-variant-numeric: tabular-nums;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* Caja “mensaje lookup” */
+.feasy #lookupMsg {
+    padding: 10px 11px;
+    border-radius: 12px;
+    border: 1px dashed rgba(226, 232, 240, 0.95);
+    background: rgba(226, 232, 240, 0.18);
+}
+
+/* ====== Botones (facturador: claros y firmes) ====== */
+.feasy .btn {
+    height: 40px;
+    padding: 0 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(226, 232, 240, 0.95);
+    background: #fff;
+    color: rgba(15, 23, 42, 0.86);
+    font-weight: 900;
+    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.12s ease, background 0.15s ease,
+        border-color 0.15s ease;
+    user-select: none;
+}
+
+.feasy .btn:hover {
+    transform: translateY(-1px);
+    border-color: rgba(5, 61, 56, 0.22);
+    background: rgba(5, 61, 56, 0.04);
+}
+
+.feasy .btn:active {
+    transform: translateY(0);
+}
+
+.feasy .btn.btn-primary {
+    background: linear-gradient(135deg, var(--m-primary), var(--m-primary-2));
+    border-color: rgba(5, 61, 56, 0.55);
+    color: #fff;
+    box-shadow: 0 14px 28px rgba(5, 61, 56, 0.18);
+}
+
+.feasy .btn.btn-primary:hover {
+    box-shadow: 0 18px 34px rgba(5, 61, 56, 0.22);
+}
+
+.feasy .btn.btn-warn {
+    background: var(--warn-bg);
+    border-color: var(--warn-bd);
+    color: rgba(146, 64, 14, 0.95);
+}
+
+.feasy .btn.btn-ghost {
+    background: #fff;
+    border-color: rgba(226, 232, 240, 0.95);
+}
+
+/* ====== Acciones finales: estilo “barra de acción” ====== */
+.feasy .actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(226, 232, 240, 0.95);
+}
+
+/* ====== Tabla items: protagonista ====== */
+.feasy #tbl {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    border: 1px solid rgba(226, 232, 240, 0.95);
+    border-radius: 14px;
+    overflow: hidden;
+    background: #fff;
+    display: block; /* permite scroll horizontal */
+}
+
+.feasy #tbl thead,
+.feasy #tbl tbody {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.feasy #tbl thead th {
+    text-align: left;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(15, 23, 42, 0.55);
+    font-weight: 900;
+    padding: 10px 10px;
+    background: linear-gradient(180deg, rgba(5, 61, 56, 0.05), transparent);
+    border-bottom: 1px solid rgba(226, 232, 240, 0.95);
+}
+
+.feasy #tbl tbody td {
+    padding: 10px 10px;
+    border-top: 1px solid rgba(226, 232, 240, 0.75);
+    font-size: 13px;
+    font-weight: 650;
+    color: rgba(15, 23, 42, 0.88);
+    vertical-align: top;
+}
+
+.feasy #tbl tbody tr:hover {
+    background: rgba(5, 61, 56, 0.03);
+}
+
+/* botón eliminar si lo renderizas */
+.feasy #tbl button {
+    height: 34px;
+    padding: 0 10px;
+    border-radius: 10px;
+    border: 1px solid var(--danger-bd);
+    background: var(--danger-bg);
+    color: rgba(185, 28, 28, 0.95);
+    font-weight: 900;
+    cursor: pointer;
+}
+
+/* ====== Totales (tipo facturador: alineado, compacto) ====== */
+.feasy .totals {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+.feasy .pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 12px; /* más “oficina” que 999px */
+    border: 1px solid rgba(226, 232, 240, 0.95);
+    background: #fff;
+    font-weight: 900;
+    font-size: 13px;
+    min-width: 170px;
+}
+
+.feasy .pill b {
+    color: rgba(5, 61, 56, 0.95);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ====== Preview output ====== */
+.feasy + #out,
+#out {
+    max-width: 1180px;
+    margin: 12px auto 0;
+    border: 1px solid rgba(226, 232, 240, 0.95);
+    background: rgba(226, 232, 240, 0.22);
+    border-radius: 14px;
+    padding: 12px 14px;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    font-size: 12.75px;
+    line-height: 1.5;
+    color: rgba(15, 23, 42, 0.9);
+}
+
+/* ====== Responsive: facturador usable en móvil ====== */
+@media (max-width: 980px) {
+    .feasy.card {
+        margin: 14px;
+        padding: 12px 12px 14px;
+    }
+    .feasy .col-3,
+    .feasy .col-2 {
+        flex: 0 0 calc(50% - 5px);
+        max-width: calc(50% - 5px);
+    }
+    .feasy .col-5 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 640px) {
+    .feasy .col-6,
+    .feasy .col-4,
+    .feasy .col-3,
+    .feasy .col-2 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    /* tabla con scroll */
+    .feasy #tbl {
+        overflow: auto;
+    }
+    .feasy #tbl thead,
+    .feasy #tbl tbody {
+        min-width: 860px;
+    }
+
+    .feasy .actions .btn {
+        width: 100%;
+        height: 42px;
+    }
+
+    .feasy .totals {
+        justify-content: stretch;
+    }
+    .feasy .pill {
+        width: 100%;
+        min-width: 0;
+    }
+}
