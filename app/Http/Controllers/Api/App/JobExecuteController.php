@@ -17,17 +17,51 @@ class JobExecuteController extends Controller
 {
     public function execute(ExecuteJobRequest $request)
     {
+        \Log::info('JobExecute: Request validation passed');
+        
         try {
             $user = $request->user();
-            $deviceId = (string) $request->header('X-Device-Id');
+            \Log::info('JobExecute: Got user', ['user_id' => $user?->id]);
+            
+            if (!$user) {
+                return response()->json(['ok' => false, 'error' => 'no_user'], 401);
+            }
 
+            $deviceId = (string) $request->header('X-Device-Id');
             $companyId = (int) $request->input('company_id');
             $portal    = (string) $request->input('portal');
             $action    = (string) $request->input('action');
-            $mode      = (string) ($request->input('mode') ?: 'sync');
-            $meta      = (array)  ($request->input('meta') ?: []);
 
-            \Log::info('JobExecute: Starting', compact('companyId', 'portal', 'action', 'mode'));
+            \Log::info('JobExecute: Starting', compact('companyId', 'portal', 'action'));
+
+            // Early check: verify assignment exists
+            $assignment = PortalAssignment::query()
+                ->where('app_user_id', $user->id)
+                ->where('active', true)
+                ->with('portalAccount')
+                ->first();
+
+            if (!$assignment) {
+                \Log::warning('JobExecute: No assignment found', ['user_id' => $user->id]);
+                return response()->json(['ok' => false, 'error' => 'no_assignment'], 403);
+            }
+
+            return response()->json(['ok' => true, 'message' => 'Job execute validated']);
+
+        } catch (\Throwable $e) {
+            \Log::error('JobExecute CRITICAL ERROR', [
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+            ]);
+
+            return response()->json([
+                'ok' => false,
+                'error' => 'internal_error',
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
 
         // 1) Validar assignment (user puede operar esa empresa/portal)
         // Verificar que el usuario autenticado tenga asignación activa

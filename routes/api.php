@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Api\App\AuthController;
 use App\Http\Controllers\Api\App\AssignmentController;
 use App\Http\Controllers\Api\App\JobController;
@@ -35,6 +36,12 @@ Route::prefix('v1/app')->group(function () {
         Route::post('/jobs/result', [JobController::class, 'uploadResult'])->middleware('throttle:30,1');
 
         Route::post('/jobs/execute', [JobExecuteController::class, 'execute']);
+
+        // Test endpoint
+        Route::post('/jobs/execute-test', function (Request $request) {
+            \Log::info('Test endpoint hit');
+            return response()->json(['ok' => true, 'message' => 'Test OK']);
+        });
 
         // ✅ Registro por cliente (app_users.type=cliente)
         Route::get('/companies', [ClientCompanyController::class, 'index']);
