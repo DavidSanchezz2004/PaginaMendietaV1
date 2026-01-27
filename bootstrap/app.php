@@ -18,6 +18,9 @@ return Application::configure(basePath: dirname(__DIR__))
     )
 
     ->withMiddleware(function (Middleware $middleware): void {
+        // Trust proxies (para HTTPS detrás de proxy/Cloudflare/EasyPanel)
+        $middleware->trustProxies(at: '*', headers: \Illuminate\Http\Request::HEADER_X_FORWARDED_ALL);
+        
         $middleware->alias([
             // ✅ Aliases de seguridad / acceso
             'role'         => \App\Http\Middleware\RoleMiddleware::class,

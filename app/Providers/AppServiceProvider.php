@@ -17,8 +17,7 @@ use Illuminate\Support\Str;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Event;
-
-
+use Illuminate\Support\Facades\URL;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -37,6 +36,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Forzar HTTPS en producción (fix CSRF cuando está detrás de proxy)
+        if (app()->environment('production') || env('FORCE_HTTPS') === true || env('FORCE_HTTPS') === 'true') {
+            URL::forceScheme('https');
+        }
+
        \Event::listen(Login::class, LogLogin::class);
         \Event::listen(Logout::class, LogLogout::class);
         \Event::listen(Failed::class, LogFailedLogin::class);
