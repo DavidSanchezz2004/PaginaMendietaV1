@@ -17,14 +17,17 @@ class JobExecuteController extends Controller
 {
     public function execute(ExecuteJobRequest $request, RobotClient $robot)
     {
-        $user = $request->user();
-        $deviceId = (string) $request->header('X-Device-Id');  // Obtener ID del dispositivo del header
+        try {
+            $user = $request->user();
+            $deviceId = (string) $request->header('X-Device-Id');  // Obtener ID del dispositivo del header
 
-        $companyId = (int) $request->input('company_id');
-        $portal    = (string) $request->input('portal');   // sunat|sunafil|afpnet
-        $action    = (string) $request->input('action');   // login|...
-        $mode      = (string) ($request->input('mode') ?: 'sync');
-        $meta      = (array)  ($request->input('meta') ?: []);
+            $companyId = (int) $request->input('company_id');
+            $portal    = (string) $request->input('portal');   // sunat|sunafil|afpnet
+            $action    = (string) $request->input('action');   // login|...
+            $mode      = (string) ($request->input('mode') ?: 'sync');
+            $meta      = (array)  ($request->input('meta') ?: []);
+
+            \Log::info('JobExecute: Starting', compact('companyId', 'portal', 'action', 'mode'));
 
         // 1) Validar assignment (user puede operar esa empresa/portal)
         // Verificar que el usuario autenticado tenga asignación activa
@@ -208,6 +211,21 @@ class JobExecuteController extends Controller
             'status' => $job->status,
             'data' => $body,
         ], $ok ? 200 : 422);
+
+        } catch (\Throwable $e) {
+            \Log::error('JobExecute CRITICAL ERROR', [
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'trace' => $e->getTraceAsString(),
+            ]);
+
+            return response()->json([
+                'ok' => false,
+                'error' => 'internal_error',
+                'message' => $e->getMessage(),
+            ], 500);
+        }
     }
 
     private function resolveRobotEndpoint(string $portal, string $action): string
