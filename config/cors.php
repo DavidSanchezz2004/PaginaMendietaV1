@@ -19,21 +19,12 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => [
-        'http://localhost',
-        'http://127.0.0.1:1430',
-        'http://127.0.0.1:3000',
-        'http://127.0.0.1:8000',
-        'http://localhost:3000',
-        'http://localhost:1430',
-        'tauri://localhost',
-        env('APP_URL'),
-    ],
+    'allowed_origins' => [],
 
     'allowed_origins_patterns' => [
-        '/^http:\/\/localhost(:[0-9]+)?$/',
-        '/^http:\/\/127\.0\.0\.1(:[0-9]+)?$/',
-        '/^tauri:\/\/.*$/',
+        '#^http://127\.0\.0\.1:\d+$#',
+        '#^http://localhost:\d+$#',
+        '#^tauri://localhost$#',
     ],
 
     'allowed_headers' => ['*'],
