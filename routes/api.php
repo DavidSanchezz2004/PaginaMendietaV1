@@ -53,3 +53,12 @@ Route::prefix('v1/app')->group(function () {
 Route::prefix('v1/robot')->middleware(['auth:sanctum', 'app_user', 'device_bound'])->group(function () {
     Route::get('/viewer/{session_id}', [RobotViewerController::class, 'viewer']);
 });
+
+// Health check (sin auth)
+Route::get('/v1/health', function () {
+    return response()->json([
+        'ok' => true,
+        'message' => 'API is healthy',
+        'timestamp' => now()->toIso8601String(),
+    ]);
+});

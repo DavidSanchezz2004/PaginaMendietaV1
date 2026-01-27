@@ -15,15 +15,15 @@ use Illuminate\Support\Str;
 
 class JobExecuteController extends Controller
 {
-    public function execute(ExecuteJobRequest $request, RobotClient $robot)
+    public function execute(ExecuteJobRequest $request)
     {
         try {
             $user = $request->user();
-            $deviceId = (string) $request->header('X-Device-Id');  // Obtener ID del dispositivo del header
+            $deviceId = (string) $request->header('X-Device-Id');
 
             $companyId = (int) $request->input('company_id');
-            $portal    = (string) $request->input('portal');   // sunat|sunafil|afpnet
-            $action    = (string) $request->input('action');   // login|...
+            $portal    = (string) $request->input('portal');
+            $action    = (string) $request->input('action');
             $mode      = (string) ($request->input('mode') ?: 'sync');
             $meta      = (array)  ($request->input('meta') ?: []);
 
@@ -156,6 +156,7 @@ class JobExecuteController extends Controller
         }
 
         try {
+            $robot = app()->make(RobotClient::class);
             $res = $robot->post($endpoint, $payload);
         } catch (\Throwable $e) {
             $job->update(['status' => 'failed']);
