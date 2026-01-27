@@ -45,7 +45,7 @@ return [
     'timeout' => (int) env('FEASY_TIMEOUT', 30),
     ],
     'robot' => [
-        'base_url' => env('ROBOT_BASE_URL','http://127.0.0.1:8000'),
+        'base_url' => env('ROBOT_BASE_URL','https://robot.antrixsys.xyz'),
         'api_key' => env('ROBOT_API_KEY'),
         'cf_client_id' => env('CF_ACCESS_CLIENT_ID'),
         'cf_client_secret' => env('CF_ACCESS_CLIENT_SECRET'),
