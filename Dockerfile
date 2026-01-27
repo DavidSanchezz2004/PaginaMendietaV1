@@ -30,6 +30,9 @@ RUN chmod -R 775 storage bootstrap/cache || true
 
 # Crear script de inicio
 RUN echo '#!/bin/sh\n\
+php artisan config:clear\n\
+php artisan route:clear\n\
+php artisan view:clear\n\
 php artisan config:cache\n\
 php artisan route:cache\n\
 php artisan view:cache\n\
