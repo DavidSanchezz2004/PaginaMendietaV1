@@ -28,6 +28,15 @@ RUN npm ci && npm run build
 # Configurar permisos
 RUN chmod -R 775 storage bootstrap/cache || true
 
+# Crear script de inicio
+RUN echo '#!/bin/sh\n\
+php artisan config:cache\n\
+php artisan route:cache\n\
+php artisan view:cache\n\
+php artisan migrate --force || echo "Migrations failed"\n\
+php artisan serve --host=0.0.0.0 --port=${PORT:-8080}\n\
+' > /app/start.sh && chmod +x /app/start.sh
+
 EXPOSE 8080
-CMD sh -lc "php artisan serve --host=0.0.0.0 --port=${PORT:-8080}"
+CMD ["/app/start.sh"]
 
