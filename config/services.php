@@ -46,6 +46,7 @@ return [
     ],
     'robot' => [
         'base_url' => env('ROBOT_BASE_URL','https://robot.antrixsys.xyz'),
+        'viewer_url' => env('ROBOT_VIEWER_URL', 'https://operator.antrixsys.xyz'),
         'api_key' => env('ROBOT_API_KEY'),
         'cf_client_id' => env('CF_ACCESS_CLIENT_ID'),
         'cf_client_secret' => env('CF_ACCESS_CLIENT_SECRET'),
@@ -56,5 +57,6 @@ return [
         'timeout' => (int) env('N8N_ASSISTANT_TIMEOUT', 25),
         'token' => env('N8N_ASSISTANT_TOKEN'),
     ],
+    
 
 ];
