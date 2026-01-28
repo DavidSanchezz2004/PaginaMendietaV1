@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api\App;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ExecuteJobRequest;
+use App\Models\PortalAssignment;
+use App\Services\PortalCredentialService;
 use Illuminate\Support\Facades\Http;
 
 class JobExecuteController extends Controller
@@ -14,10 +16,51 @@ class JobExecuteController extends Controller
             $user = $request->user();
 
             $companyId = (int) $request->input('company_id');
-            $portal    = (string) $request->input('portal');   // lo dejamos por compat
+            $portal    = (string) $request->input('portal');
             $action    = (string) $request->input('action');
 
-            // 1) Resolver endpoint real del robot según action
+            // 1) Buscar assignment del usuario con credenciales
+            $assignment = PortalAssignment::query()
+                ->where('app_user_id', $user->id)
+                ->where('active', true)
+                ->whereHas('portalAccount', function ($q) use ($companyId) {
+                    $q->where('company_id', $companyId);
+                })
+                ->with(['portalAccount.latestCredential', 'portalAccount.company'])
+                ->first();
+
+            if (!$assignment) {
+                return response()->json([
+                    'ok' => false,
+                    'error' => 'no_assignment',
+                    'message' => 'No tienes asignación activa para esta empresa'
+                ], 403);
+            }
+
+            $credential = $assignment->portalAccount->latestCredential;
+            if (!$credential) {
+                return response()->json([
+                    'ok' => false,
+                    'error' => 'no_credentials',
+                    'message' => 'No hay credenciales configuradas para esta cuenta'
+                ], 404);
+            }
+
+            // 2) Desencriptar credenciales
+            $credService = new PortalCredentialService();
+            $username = $credService->decryptString($credential->username_enc);
+            $password = $credService->decryptString($credential->password_enc);
+            $ruc = $assignment->portalAccount->company->ruc ?? '';
+
+            if (!$username || !$password || !$ruc) {
+                return response()->json([
+                    'ok' => false,
+                    'error' => 'invalid_credentials',
+                    'message' => 'Credenciales incompletas o inválidas'
+                ], 400);
+            }
+
+            // 3) Resolver endpoint del robot según action
             $robotPath = match ($action) {
                 'sunat.menu_sol_login'    => '/sunat/login',
                 'sunat.declaracion_login' => '/sunat/declaracion/login',
@@ -29,24 +72,20 @@ class JobExecuteController extends Controller
             $base = rtrim((string) config('services.robot.base_url'), '/');
             $robotUrl = $base . $robotPath;
 
-            // 2) Llamar al robot CON x-api-key (esto arregla tu invalid_api_key)
+            // 4) Llamar al robot con credenciales reales
             $robot = Http::timeout((int) config('services.robot.timeout', 60))
                 ->withHeaders([
                     'Accept'    => 'application/json',
                     'x-api-key' => (string) config('services.robot.api_key'),
                 ])
                 ->post($robotUrl, [
-                    // TODO: aquí debes mandar credenciales reales.
-                    // El robot exige: ruc, usuario_sol, clave_sol
-                    //
-                    // Si tú las tienes en DB, reemplaza estas 3 líneas por lo que salga de portalAccount:
-                    'ruc'         => (string) $request->input('ruc'),
-                    'usuario_sol' => (string) $request->input('usuario_sol'),
-                    'clave_sol'   => (string) $request->input('clave_sol'),
+                    'ruc'         => $ruc,
+                    'usuario_sol' => $username,
+                    'clave_sol'   => $password,
 
-                    // meta opcional (no afecta al robot)
+                    // meta opcional
                     'company_id'  => $companyId,
-                    'operator_id' => $user?->id,
+                    'operator_id' => $user->id,
                     'portal'      => $portal,
                     'action'      => $action,
                 ]);
