@@ -4,56 +4,56 @@ namespace App\Http\Controllers\Api\App;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ExecuteJobRequest;
-use App\Models\PortalAssignment;
+use Illuminate\Support\Facades\Http;
 
 class JobExecuteController extends Controller
 {
     public function execute(ExecuteJobRequest $request)
     {
-        \Log::info('JobExecute: Request validation passed');
-        
         try {
             $user = $request->user();
-            \Log::info('JobExecute: Got user', ['user_id' => $user?->id]);
-            
-            if (!$user) {
-                return response()->json(['ok' => false, 'error' => 'no_user'], 401);
-            }
 
-            $deviceId = (string) $request->header('X-Device-Id');
             $companyId = (int) $request->input('company_id');
             $portal    = (string) $request->input('portal');
             $action    = (string) $request->input('action');
 
-            \Log::info('JobExecute: Starting', compact('companyId', 'portal', 'action'));
+            // 🔥 LLAMADA REAL AL ROBOT
+            $robot = Http::timeout(60)->post(
+                config('services.robot.base_url') . "/{$portal}/login",
+                [
+                    'company_id' => $companyId,
+                    'action' => $action,
+                    'operator_id' => $user->id,
+                ]
+            );
 
-            // Early check: verify assignment exists
-            $assignment = PortalAssignment::query()
-                ->where('app_user_id', $user->id)
-                ->where('active', true)
-                ->with('portalAccount')
-                ->first();
-
-            if (!$assignment) {
-                \Log::warning('JobExecute: No assignment found', ['user_id' => $user->id]);
-                return response()->json(['ok' => false, 'error' => 'no_assignment'], 403);
+            if (!$robot->ok()) {
+                return response()->json([
+                    'ok' => false,
+                    'error' => 'robot_error',
+                    'detail' => $robot->body(),
+                ], 500);
             }
 
-            \Log::info('JobExecute: Assignment found', ['assignment_id' => $assignment->id]);
+            $robotData = $robot->json();
+
+            /**
+             * EJEMPLO RESPUESTA DEL ROBOT:
+             * {
+             *   "ok": true,
+             *   "session_id": "4965c076",
+             *   "url": "https://e-menu.sunat.gob.pe"
+             * }
+             */
 
             return response()->json([
                 'ok' => true,
-                'message' => 'Job execute validated successfully',
-                'assignment_id' => $assignment->id,
+                'session_id' => $robotData['session_id'],
+                'viewer_url' => config('services.robot.viewer_url')
+                    . '/viewer/' . $robotData['session_id'],
             ]);
 
         } catch (\Throwable $e) {
-            \Log::error('JobExecute CRITICAL ERROR', [
-                'message' => $e->getMessage(),
-                'file' => $e->getFile(),
-                'line' => $e->getLine(),
-            ]);
-
             return response()->json([
                 'ok' => false,
                 'error' => 'internal_error',
