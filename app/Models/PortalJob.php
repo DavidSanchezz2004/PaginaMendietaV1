@@ -17,6 +17,10 @@ class PortalJob extends Model
         'portal',
         'action',
         'status',
+        'robot_worker_base_url',      // ✅ Worker usado
+        'robot_worker_viewer_url',    // ✅ Viewer del worker
+        'robot_worker_id',            // ✅ ID del worker (worker-01, worker-02, etc)
+        'robot_session_id',           // ✅ Session ID del robot
         'exec_token_hash',
         'exec_token_expires_at',
         'exec_token_used_at',

@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\App\JobExecuteController;
 use App\Http\Controllers\Api\App\ClientCompanyController;
 use App\Http\Controllers\Api\App\ClientPortalAccountController;
 use App\Http\Controllers\Api\App\ClientPortalCredentialController;
+use App\Http\Controllers\Api\App\BuzonController;
 use App\Http\Controllers\Api\Robot\RobotViewerController;
 
 
@@ -36,6 +37,10 @@ Route::prefix('v1/app')->group(function () {
         Route::post('/jobs/result', [JobController::class, 'uploadResult'])->middleware('throttle:30,1');
 
         Route::post('/jobs/execute', [JobExecuteController::class, 'execute']);
+        
+        // ✅ Cierre de sesión (libera el worker)
+        Route::post('/jobs/{id}/close', [JobExecuteController::class, 'close']);
+        Route::delete('/jobs/{id}/close', [JobExecuteController::class, 'close']);
 
         // Test endpoint
         Route::post('/jobs/execute-test', function (Request $request) {
@@ -53,6 +58,12 @@ Route::prefix('v1/app')->group(function () {
         Route::post('/portal-accounts', [ClientPortalAccountController::class, 'store']);
         Route::post('/portal-credentials', [ClientPortalCredentialController::class, 'store']);
 
+        // ✅ Buzón SUNAT (ejemplo de endpoints que reutilizan el worker de la sesión)
+        Route::get('/buzon/list', [BuzonController::class, 'list']);
+        Route::post('/buzon/open', [BuzonController::class, 'open']);
+        Route::post('/buzon/download', [BuzonController::class, 'download']);
+        Route::post('/session/close', [BuzonController::class, 'closeSession']);
+
     });
 });
 
@@ -69,3 +80,13 @@ Route::get('/v1/health', function () {
         'timestamp' => now()->toIso8601String(),
     ]);
 });
+
+// ✅ Worker pool status (opcional, para monitoring - requiere auth o API key)
+Route::get('/v1/admin/workers/health', function () {
+    $workerPool = new \App\Services\RobotWorkerPool();
+    return response()->json([
+        'ok' => true,
+        'workers' => $workerPool->getAllWorkersHealth(),
+        'timestamp' => now()->toIso8601String(),
+    ]);
+})->middleware(['auth:sanctum']);

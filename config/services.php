@@ -45,12 +45,23 @@ return [
     'timeout' => (int) env('FEASY_TIMEOUT', 30),
     ],
     'robot' => [
-        'base_url' => env('ROBOT_BASE_URL','https://robot.antrixsys.xyz'),
-        'viewer_url' => env('ROBOT_VIEWER_URL', 'https://operator.antrixsys.xyz'),
+        'base_url' => env('ROBOT_BASE_URL','http://127.0.0.1:8000'),
+        'viewer_url' => env('ROBOT_VIEWER_URL', 'http://127.0.0.1:6080'),
         'api_key' => env('ROBOT_API_KEY'),
         'cf_client_id' => env('CF_ACCESS_CLIENT_ID'),
         'cf_client_secret' => env('CF_ACCESS_CLIENT_SECRET'),
         'timeout' => env('ROBOT_TIMEOUT', 60),
+        
+        // ✅ Worker pool: cada worker tiene su API y su VNC viewer
+        // En producción con Cloudflare Tunnel:
+        //   api-01.antrixsys.xyz → localhost:8000 (API)
+        //   operator-01.antrixsys.xyz → localhost:6080 (VNC)
+        // viewer_url es la base, Laravel agregará /viewer.html#session_id=...
+        'workers' => env('ROBOT_WORKERS') ? json_decode(env('ROBOT_WORKERS'), true) : [
+            ['base_url' => 'http://127.0.0.1:8000', 'viewer_url' => 'http://127.0.0.1:6080'],
+            ['base_url' => 'http://127.0.0.1:8001', 'viewer_url' => 'http://127.0.0.1:6081'],
+            ['base_url' => 'http://127.0.0.1:8002', 'viewer_url' => 'http://127.0.0.1:6082'],
+        ],
     ],
     'n8n' => [
         'assistant_url' => env('N8N_ASSISTANT_URL'),
