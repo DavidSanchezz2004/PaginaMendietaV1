@@ -261,8 +261,9 @@ class JobExecuteController extends Controller
                 ],
             ]);
 
-            // viewer_url con /viewer.html# (hash routing para noVNC)
-            $viewerUrl = rtrim($worker['viewer_url'], '/') . '/viewer.html#' . $worker['session_id'];
+            // viewer_url - usar path format para que el robot valide correctamente
+            // Formato: https://viewer.example.com/viewer/{session_id}
+            $viewerUrl = rtrim($worker['viewer_url'], '/') . '/viewer/' . $worker['session_id'];
 
             return response()->json([
                 'ok' => true,
