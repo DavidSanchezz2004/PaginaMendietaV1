@@ -101,6 +101,10 @@ class JobExecuteController extends Controller
             $worker = null;
             $last409 = null;
             $robotClient = new RobotClient();
+            
+            // Tracking de estados para mensajes precisos
+            $allDown = true;
+            $anyBusy = false;
 
             foreach ($workers as $w) {
                 $baseUrl = rtrim((string) ($w['base_url'] ?? ''), '/');
@@ -113,8 +117,22 @@ class JobExecuteController extends Controller
                 // Health check rápido
                 $health = $workerPool->checkHealthPublic($baseUrl);
                 
-                if (!$health || !($health['ok'] ?? false) || ($health['session_active'] ?? true)) {
-                    // Worker ocupado o caído, probar siguiente
+                // Worker no responde (caído/apagado)
+                if (!$health || !($health['ok'] ?? false)) {
+                    Log::debug('[JobExecute] Worker caído o sin respuesta', ['worker' => $baseUrl]);
+                    continue;
+                }
+                
+                // Al menos un worker respondió
+                $allDown = false;
+                
+                // Worker ocupado (tiene sesión activa)
+                if ($health['session_active'] ?? true) {
+                    $anyBusy = true;
+                    Log::debug('[JobExecute] Worker ocupado', [
+                        'worker' => $baseUrl,
+                        'sesiones_activas' => $health['sesiones_activas'] ?? null,
+                    ]);
                     continue;
                 }
 
@@ -192,14 +210,33 @@ class JobExecuteController extends Controller
                 break;
             }
 
-            // Si todos ocupados o race condition en todos
+            // Manejo inteligente de errores según el estado detectado
             if (!$worker) {
-                return response()->json([
-                    'ok' => false,
-                    'error' => 'no_workers_available',
-                    'message' => 'Todos los robots están ocupados. Intenta en unos segundos.',
-                    'last_409' => $last409,
-                ], 503);
+                if ($allDown) {
+                    // Ningún worker respondió al health check
+                    return response()->json([
+                        'ok' => false,
+                        'error' => 'all_workers_down',
+                        'message' => 'No hay robots disponibles. Verifica que los servicios estén funcionando.',
+                        'last_409' => $last409,
+                    ], 503);
+                } else if ($anyBusy) {
+                    // Al menos un worker respondió pero todos están ocupados
+                    return response()->json([
+                        'ok' => false,
+                        'error' => 'no_workers_available',
+                        'message' => 'Todos los robots están ocupados. Intenta en unos segundos.',
+                        'last_409' => $last409,
+                    ], 503);
+                } else {
+                    // Caso inesperado (por si acaso)
+                    return response()->json([
+                        'ok' => false,
+                        'error' => 'no_workers_available',
+                        'message' => 'No se pudo asignar un robot. Intenta nuevamente.',
+                        'last_409' => $last409,
+                    ], 503);
+                }
             }
 
             // 5) Crear y guardar PortalJob con toda la info del worker y sesión
@@ -224,7 +261,7 @@ class JobExecuteController extends Controller
                 ],
             ]);
 
-            // ✅ viewer_url con /viewer.html# (hash routing para noVNC)
+            // viewer_url con /viewer.html# (hash routing para noVNC)
             $viewerUrl = rtrim($worker['viewer_url'], '/') . '/viewer.html#' . $worker['session_id'];
 
             return response()->json([
