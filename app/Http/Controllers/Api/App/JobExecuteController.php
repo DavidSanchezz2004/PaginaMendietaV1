@@ -127,7 +127,8 @@ class JobExecuteController extends Controller
                 $allDown = false;
                 
                 // Worker ocupado (tiene sesión activa)
-                if ($health['session_active'] ?? true) {
+                // IMPORTANTE: Si el worker no envía session_active, asumimos que está LIBRE (false)
+                if ($health['session_active'] ?? false) {
                     $anyBusy = true;
                     Log::debug('[JobExecute] Worker ocupado', [
                         'worker' => $baseUrl,
@@ -261,9 +262,9 @@ class JobExecuteController extends Controller
                 ],
             ]);
 
-            // viewer_url - usar path format para que el robot valide correctamente
-            // Formato: https://viewer.example.com/viewer/{session_id}
-            $viewerUrl = rtrim($worker['viewer_url'], '/') . '/viewer/' . $worker['session_id'];
+            // viewer_url - usar query string format para el frontend
+            // Formato: https://viewer.example.com/viewer?session_id={session_id}
+            $viewerUrl = rtrim($worker['viewer_url'], '/') . '/viewer?session_id=' . $worker['session_id'];
 
             return response()->json([
                 'ok' => true,
