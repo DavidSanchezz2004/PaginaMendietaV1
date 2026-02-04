@@ -144,6 +144,45 @@
           </select>
         </div>
 
+        {{-- =========================
+           DATOS DEL CLIENTE (ACCESO)
+           ========================= --}}
+        <div class="hr"></div>
+
+        <div class="field full">
+          <div style="font-weight:900; font-size:14px; margin-bottom:6px;">
+            Datos del cliente (acceso al portal)
+          </div>
+          <div style="opacity:.75; font-size:12.5px;">
+            Se creará un usuario con rol <b>cliente</b> ligado a esta empresa.
+          </div>
+        </div>
+
+        <!-- Nombre cliente -->
+        <div class="field">
+          <label class="lbl">Nombre del cliente <span class="req">*</span></label>
+          <input class="inp" id="cliente_name" name="cliente_name" type="text"
+                 value="{{ old('cliente_name') }}" placeholder="Ej: Juan Pérez" required>
+        </div>
+
+        <!-- Email cliente -->
+        <div class="field">
+          <label class="lbl">Email del cliente <span class="req">*</span></label>
+          <input class="inp" id="cliente_email" name="cliente_email" type="email"
+                 value="{{ old('cliente_email') }}" placeholder="Ej: cliente@gmail.com" required>
+        </div>
+
+        <!-- Password cliente -->
+        <div class="field full">
+          <label class="lbl">Contraseña temporal <span class="req">*</span></label>
+          <input class="inp" id="cliente_password" name="cliente_password" type="password"
+                 minlength="8" maxlength="100" value="{{ old('cliente_password') }}"
+                 placeholder="Mínimo 8 caracteres" required>
+          <p class="help" style="margin-top:6px;">
+            Recomendado: una contraseña temporal y luego que el cliente la cambie.
+          </p>
+        </div>
+
         <!-- Hidden SUNAT -->
         <input type="hidden" id="sunat_estado" name="sunat_estado" value="{{ old('sunat_estado') }}">
         <input type="hidden" id="sunat_condicion" name="sunat_condicion" value="{{ old('sunat_condicion') }}">
