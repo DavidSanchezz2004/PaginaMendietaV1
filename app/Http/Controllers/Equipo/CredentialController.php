@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Crypt;
 
 class CredentialController extends Controller
 {
-    private array $allowedPortals = ['SUNAT', 'SUNAFIL','AFP'];
+    private array $allowedPortals = ['SUNAT', 'SUNAFIL','AFPNET'];
 
     // GET /equipo/credenciales
     public function index(Request $request)
@@ -38,7 +38,7 @@ class CredentialController extends Controller
     {
         $portalAccount->load(['company:id,ruc,razon_social', 'latestCredential']);
 
-        // seguridad: solo sunat/sunafil
+        // seguridad: solo sunat/sunafil/afpnet
         if (!in_array(strtoupper($portalAccount->portal), $this->allowedPortals, true)) {
             abort(404);
         }
@@ -61,11 +61,14 @@ class CredentialController extends Controller
         $username = trim((string) $validated['username']);
         $password = (string) $validated['password'];
 
-        PortalCredential::create([
-            'portal_account_id' => $portalAccount->id,
-            'username_enc' => Crypt::encryptString($username),
-            'password_enc' => Crypt::encryptString($password),
-        ]);
+        // ✅ FIX: updateOrCreate en lugar de create (evita duplicate entry)
+        PortalCredential::updateOrCreate(
+            ['portal_account_id' => $portalAccount->id],
+            [
+                'username_enc' => Crypt::encryptString($username),
+                'password_enc' => Crypt::encryptString($password),
+            ]
+        );
 
         return redirect()
             ->route('equipo.credenciales.index')
