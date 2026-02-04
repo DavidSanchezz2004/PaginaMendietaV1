@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Equipo;
 
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\PortalAccount;
 use App\Models\PortalCredential;
@@ -19,7 +20,7 @@ class CredentialController extends Controller
 
         $accounts = PortalAccount::query()
             ->with(['company:id,ruc,razon_social', 'latestCredential'])
-            ->whereIn('portal', $this->allowedPortals)
+            ->whereIn(DB::raw('UPPER(portal)'), $this->allowedPortals)
             ->when($q !== '', function ($query) use ($q) {
                 $query->whereHas('company', function ($c) use ($q) {
                     $c->where('ruc', 'like', "%{$q}%")
