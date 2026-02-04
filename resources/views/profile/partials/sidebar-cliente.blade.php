@@ -101,19 +101,7 @@
       </span>
     </a>
 
-    {{-- Escríbenos (abre modal en frontend) --}}
-    <a class="item" href="#" onclick="window.dispatchEvent(new CustomEvent('open-contact-modal')); return false;">
-      <span class="item-left">
-        <span class="icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
-            <path d="M21 15a4 4 0 0 1-4 4H7l-4 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"></path>
-            <path d="M7 8h10"></path>
-            <path d="M7 12h7"></path>
-          </svg>
-        </span>
-        <span class="label">Escríbenos</span>
-      </span>
-    </a>
+    
 
     {{-- Perfil --}}
     <a class="item {{ request()->routeIs('cliente.perfil') ? 'active' : '' }}"
