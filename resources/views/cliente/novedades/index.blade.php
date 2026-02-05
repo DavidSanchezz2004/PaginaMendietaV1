@@ -3,112 +3,121 @@
 @section('title', 'Novedades')
 @section('topbar_subtitle', 'Noticias y Tutoriales')
 
+@push('styles')
+<link rel="stylesheet" href="{{ asset('css/cliente_novedades.css') }}">
+@endpush
+
 @section('content')
-  <h1>Novedades</h1>
+<div class="page page-novedades">
+
+  <div class="page-head">
+    <h1 class="h1">Novedades</h1>
+  </div>
 
   @if(session('ok'))
-    <div style="padding:10px;border:1px solid #cce7d5;border-radius:10px;margin:10px 0;">
+    <div class="alert alert-success">
       {{ session('ok') }}
     </div>
   @endif
 
-  <div style="display:flex; gap:10px; align-items:center; margin:12px 0;">
-    <form method="GET" action="{{ route('cliente.novedades.index') }}" style="display:flex; gap:8px;">
-      <input name="q" value="{{ $q ?? '' }}" placeholder="Buscar..." />
-      <button type="submit">Buscar</button>
+  <div class="toolbar">
+    <form method="GET" action="{{ route('cliente.novedades.index') }}" class="search-form">
+      <input name="q" value="{{ $q ?? '' }}" placeholder="Buscar..." class="input">
+      <button class="btn primary">Buscar</button>
       @if(!empty($q))
-        <a href="{{ route('cliente.novedades.index') }}">Limpiar</a>
+        <a href="{{ route('cliente.novedades.index') }}" class="btn ghost">Limpiar</a>
       @endif
     </form>
 
-    <button type="button" onclick="document.getElementById('modal-contacto').showModal()">
+    <button class="btn secondary" onclick="document.getElementById('modal-contacto').showModal()">
       Escríbenos ahora
     </button>
   </div>
 
-  <hr>
+  <hr class="divider">
 
-  <h2>Noticias</h2>
-  <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:12px;">
+  <h2 class="h2">Noticias</h2>
+  <div class="grid cards-3">
     @forelse($news as $n)
-      <div style="border:1px solid #eee; padding:12px; border-radius:12px;">
-        <div style="font-size:12px; opacity:.7;">{{ strtoupper($n->category) }} · {{ optional($n->published_at)->format('Y-m-d') }}</div>
-        <h3 style="margin:8px 0;">{{ $n->title }}</h3>
-        <p style="opacity:.8;">{{ $n->excerpt }}</p>
-        <a href="{{ route('cliente.news.show', $n->slug) }}">Leer artículo</a>
-      </div>
+      <article class="card">
+        <div class="card-meta">
+          {{ strtoupper($n->category) }} · {{ optional($n->published_at)->format('Y-m-d') }}
+        </div>
+        <h3 class="card-title">{{ $n->title }}</h3>
+        <p class="card-text">{{ $n->excerpt }}</p>
+        <a class="link" href="{{ route('cliente.news.show', $n->slug) }}">Leer artículo</a>
+      </article>
     @empty
-      <p>No hay noticias publicadas.</p>
+      <p class="muted">No hay noticias publicadas.</p>
     @endforelse
   </div>
 
-  <hr style="margin:20px 0;">
+  <hr class="divider">
 
-  <h2>Tutoriales y Guías</h2>
-  <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:12px;">
+  <h2 class="h2">Tutoriales y Guías</h2>
+  <div class="grid cards-3">
     @forelse($tutorials as $t)
-      <div style="border:1px solid #eee; padding:12px; border-radius:12px;">
-        <div style="font-size:12px; opacity:.7;">
+      <article class="card">
+        <div class="card-meta">
           {{ strtoupper($t->category) }}
           @if($t->duration_label) · {{ $t->duration_label }} @endif
         </div>
-        <h3 style="margin:8px 0;">{{ $t->title }}</h3>
-        <p style="opacity:.8;">{{ $t->excerpt }}</p>
+        <h3 class="card-title">{{ $t->title }}</h3>
+        <p class="card-text">{{ $t->excerpt }}</p>
 
-        <div style="display:flex; gap:10px;">
-<a href="{{ route('cliente.tutoriales.show', $t->slug) }}">Ver detalle</a>
-
-          <!-- ✅ NO link real -->
-<!-- ✅ NO link real -->
-<a href="{{ route('cliente.tutoriales.ver', $t) }}">Ver tutorial</a>
+        <div class="card-actions">
+          <a class="link" href="{{ route('cliente.tutoriales.show', $t->slug) }}">Ver detalle</a>
+          <a class="link strong" href="{{ route('cliente.tutoriales.ver', $t) }}">Ver tutorial</a>
         </div>
-      </div>
+      </article>
     @empty
-      <p>No hay tutoriales publicados.</p>
+      <p class="muted">No hay tutoriales publicados.</p>
     @endforelse
   </div>
 
-  <!-- MODAL CONTACTO -->
-  <dialog id="modal-contacto">
-    <form method="POST" action="{{ route('cliente.contacto.send') }}" style="min-width:420px;">
-      @csrf
-      <h3>Escríbenos ahora</h3>
+</div>
 
-      <div style="margin:10px 0;">
-        <label>Título</label><br>
-        <input name="titulo" required maxlength="120" style="width:100%;" />
+{{-- MODAL --}}
+<dialog id="modal-contacto" class="modal">
+  <form method="POST" action="{{ route('cliente.contacto.send') }}" class="modal-box">
+    @csrf
+    <h3 class="h3">Escríbenos ahora</h3>
+
+    <div class="form-group">
+      <label>Título</label>
+      <input name="titulo" required maxlength="120" class="input">
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Categoría</label>
+        <select name="categoria" required class="input">
+          <option value="tributario">Tributario</option>
+          <option value="facturacion">Facturación</option>
+          <option value="laboral">Laboral</option>
+          <option value="otros">Otros</option>
+        </select>
       </div>
 
-      <div style="display:flex; gap:10px;">
-        <div style="flex:1;">
-          <label>Categoría</label><br>
-          <select name="categoria" required style="width:100%;">
-            <option value="tributario">Tributario</option>
-            <option value="facturacion">Facturación</option>
-            <option value="laboral">Laboral</option>
-            <option value="otros">Otros</option>
-          </select>
-        </div>
-
-        <div style="flex:1;">
-          <label>Urgencia</label><br>
-          <select name="urgencia" required style="width:100%;">
-            <option value="baja">Baja</option>
-            <option value="media">Media</option>
-            <option value="alta">Alta</option>
-          </select>
-        </div>
+      <div class="form-group">
+        <label>Urgencia</label>
+        <select name="urgencia" required class="input">
+          <option value="baja">Baja</option>
+          <option value="media">Media</option>
+          <option value="alta">Alta</option>
+        </select>
       </div>
+    </div>
 
-      <div style="margin:10px 0;">
-        <label>Mensaje</label><br>
-        <textarea name="mensaje" rows="5" required maxlength="4000" style="width:100%;"></textarea>
-      </div>
+    <div class="form-group">
+      <label>Mensaje</label>
+      <textarea name="mensaje" rows="5" maxlength="4000" required class="input"></textarea>
+    </div>
 
-      <div style="display:flex; gap:10px; justify-content:flex-end;">
-        <button type="button" onclick="document.getElementById('modal-contacto').close()">Cancelar</button>
-        <button type="submit">Enviar</button>
-      </div>
-    </form>
-  </dialog>
+    <div class="modal-actions">
+      <button type="button" class="btn ghost" onclick="document.getElementById('modal-contacto').close()">Cancelar</button>
+      <button class="btn primary">Enviar</button>
+    </div>
+  </form>
+</dialog>
 @endsection

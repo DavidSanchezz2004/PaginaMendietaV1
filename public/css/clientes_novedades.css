@@ -1,0 +1,180 @@
+/* =========================
+   Base Mendieta
+========================= */
+
+.page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 12px 0 28px;
+}
+
+.h1 {
+    font-size: 26px;
+    font-weight: 800;
+}
+.h2 {
+    font-size: 20px;
+    margin: 18px 0 10px;
+}
+.h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.muted {
+    opacity: 0.65;
+}
+.divider {
+    margin: 18px 0;
+    opacity: 0.3;
+}
+
+/* =========================
+   Toolbar
+========================= */
+
+.toolbar {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 12px 0;
+}
+
+.search-form {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+/* =========================
+   Inputs & Buttons
+========================= */
+
+.input {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(5, 61, 56, 0.25);
+    font-size: 14px;
+}
+
+.btn {
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.btn.primary {
+    background: #0f514a;
+    color: #fff;
+}
+
+.btn.secondary {
+    background: rgba(5, 61, 56, 0.08);
+    color: #0f514a;
+}
+
+.btn.ghost {
+    background: transparent;
+    color: #0f514a;
+}
+
+/* =========================
+   Cards
+========================= */
+
+.grid {
+    display: grid;
+    gap: 14px;
+}
+
+.cards-3 {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+.card {
+    border: 1px solid rgba(5, 61, 56, 0.18);
+    border-radius: 14px;
+    padding: 14px;
+    background: #fff;
+}
+
+.card-meta {
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+.card-title {
+    margin: 8px 0 6px;
+    font-size: 16px;
+}
+
+.card-text {
+    font-size: 14px;
+    opacity: 0.85;
+}
+
+.card-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.link {
+    color: #0f514a;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.link.strong {
+    font-weight: 800;
+}
+
+/* =========================
+   Alerts
+========================= */
+
+.alert {
+    padding: 12px 14px;
+    border-radius: 12px;
+    font-weight: 700;
+    margin: 12px 0;
+}
+
+.alert-success {
+    background: rgba(5, 61, 56, 0.08);
+    border: 1px solid rgba(5, 61, 56, 0.22);
+}
+
+/* =========================
+   Modal
+========================= */
+
+.modal::backdrop {
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.modal-box {
+    min-width: 420px;
+    padding: 18px;
+    border-radius: 16px;
+}
+
+.form-group {
+    margin: 10px 0;
+}
+.form-row {
+    display: flex;
+    gap: 12px;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 12px;
+}
