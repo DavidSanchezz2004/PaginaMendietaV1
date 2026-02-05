@@ -4,7 +4,7 @@
 @section('topbar_subtitle', 'Noticias y Tutoriales')
 
 @push('styles')
-<link rel="stylesheet" href="{{ asset('css/cliente_novedades.css') }}">
+<link rel="stylesheet" href="{{ asset('css/clientes_novedades.css') }}">
 @endpush
 
 @section('content')
