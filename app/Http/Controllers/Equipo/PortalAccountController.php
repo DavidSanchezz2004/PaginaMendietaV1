@@ -9,7 +9,19 @@ use Illuminate\Http\Request;
 
 class PortalAccountController extends Controller
 {
-    private array $portals = ['sunat','sunafil','afp'];
+    // ✅ Debe calzar con tu ENUM: enum('sunat','sunafil','afpnet')
+    private array $portals = ['sunat','sunafil','afpnet'];
+
+    // ✅ Mapea aliases viejos -> nuevos
+    private array $portalAlias = [
+        'afp' => 'afpnet',
+    ];
+
+    private function normalizePortal(string $portal): string
+    {
+        $portal = strtolower(trim($portal));
+        return $this->portalAlias[$portal] ?? $portal;
+    }
 
     public function edit(Company $company)
     {
@@ -18,7 +30,6 @@ class PortalAccountController extends Controller
             ->get()
             ->keyBy('portal');
 
-        // estado para la UI
         $states = [];
         foreach ($this->portals as $p) {
             $states[$p] = ($existing[$p]->status ?? null) === 'active';
@@ -29,10 +40,13 @@ class PortalAccountController extends Controller
 
     public function update(Request $request, Company $company)
     {
-        $enabled = $request->input('portals', []); // array de portales marcados
+        $enabled = $request->input('portals', []);
         $enabled = is_array($enabled) ? $enabled : [];
 
-        // normaliza: solo permitidos
+        // ✅ normaliza aliases (afp -> afpnet)
+        $enabled = array_map(fn($p) => $this->normalizePortal((string)$p), $enabled);
+
+        // ✅ deja solo permitidos
         $enabled = array_values(array_intersect($enabled, $this->portals));
 
         foreach ($this->portals as $portal) {
