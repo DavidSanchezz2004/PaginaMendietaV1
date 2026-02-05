@@ -19,7 +19,13 @@
 
 body {
     margin: 0;
-    font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial,
+    font-family:
+        "Poppins",
+        system-ui,
+        -apple-system,
+        Segoe UI,
+        Roboto,
+        Arial,
         sans-serif;
     background: var(--bg);
     color: var(--text);
@@ -460,7 +466,9 @@ body {
     font-weight: 600;
     color: rgba(15, 23, 42, 0.86);
     outline: none;
-    transition: border-color 0.12s ease, box-shadow 0.12s ease;
+    transition:
+        border-color 0.12s ease,
+        box-shadow 0.12s ease;
 }
 
 .inp:focus {
@@ -515,3 +523,4 @@ body {
         display: flex;
     }
 }
+
