@@ -1,0 +1,276 @@
+/* ====== TABS HEADER ====== */
+.fact-tabsbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 16px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+.fact-tabs {
+    display: flex;
+    gap: 32px;
+    align-items: flex-end;
+    border-bottom: 1px solid var(--fact-line);
+    width: 100%;
+    padding-bottom: 0;
+}
+
+.fact-tab {
+    position: relative;
+    padding: 12px 4px;
+    font-weight: 600; /* Fixed from 1000 */
+    color: var(--fact-text-light);
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px; /* Overlap border */
+}
+
+.fact-tab:hover {
+    color: var(--fact-primary);
+}
+
+.fact-tab.active {
+    color: var(--fact-primary);
+    border-bottom-color: var(--fact-primary);
+}
+
+/* Removed ::after hack, used border-bottom on element for cleaner rendering */
+
+.fact-tabs-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    /* Move actions to top right if needed, or keep inline */
+    margin-left: auto; /* Push to right */
+    margin-bottom: 8px; /* Adjustment for wrap */
+}
+
+/* Adjust tabsbar layout to accomodate full width tabs border */
+.fact-tabsbar {
+    align-items: flex-end;
+    border-bottom: 1px solid var(--fact-line);
+    padding-bottom: 0;
+    gap: 0;
+    margin-bottom: 24px;
+}
+.fact-tabs {
+    border-bottom: none;
+    width: auto;
+}
+.fact-tabs-actions {
+    margin-bottom: 10px;
+}
+
+/* ====== CHECK COL ====== */
+.fact-checkcol {
+    width: 42px;
+    text-align: center;
+}
+.fact-radio {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--fact-primary); /* Updated color */
+    cursor: pointer;
+}
+
+/* ====== Pills/Badges (Paquetes - elementos) ====== */
+.fact-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--fact-line);
+    background: #fff;
+    font-weight: 600; /* Fixed from 900 */
+    color: var(--fact-text);
+    font-size: 13px;
+}
+.fact-pill small {
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: var(--fact-primary-light);
+    color: var(--fact-primary);
+    font-weight: 700; /* Fixed from 1000 */
+    font-size: 11px;
+}
+
+/* ====== MODAL inputs 2-col (paquete) ====== */
+.fact-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+@media (max-width: 640px) {
+    .fact-grid-2 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ====== Paquete: add row ====== */
+.fact-addrow {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.fact-addrow input {
+    flex: 1;
+}
+.fact-plus {
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+    border: none;
+    background: var(--fact-primary); /* Updated color */
+    color: #fff;
+    font-weight: 700; /* Fixed from 1000 */
+    cursor: pointer;
+    font-size: 20px;
+    display: grid;
+    place-items: center;
+    transition: background 0.2s;
+}
+.fact-plus:hover {
+    background: var(--fact-primary-hover);
+}
+
+.fact-empty-pack {
+    display: grid;
+    place-items: center;
+    padding: 32px 0 16px;
+    color: var(--fact-text-light); /* Updated color */
+    font-weight: 600; /* Fixed from 900 */
+    font-size: 14px;
+    font-style: italic;
+}
+/* ====== TABS HEADER (limpio) ====== */
+.fact-tabsbar {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    margin: 16px 0 24px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--fact-line);
+}
+
+.fact-tabs {
+    display: flex;
+    gap: 32px;
+    align-items: flex-end;
+}
+
+.fact-tab {
+    position: relative;
+    padding: 12px 4px;
+    font-weight: 600;
+    color: var(--fact-text-light);
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+}
+
+.fact-tab:hover {
+    color: var(--fact-primary);
+}
+.fact-tab.active {
+    color: var(--fact-primary);
+    border-bottom-color: var(--fact-primary);
+}
+
+.fact-tabs-actions {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* =========================
+   OVERRIDE PRO (Ventas)
+   Pegar al FINAL de fact-inventario.css
+   ========================= */
+
+.fact-ui .fact-headpro {
+    display: flex !important;
+    align-items: flex-end !important;
+    justify-content: space-between !important;
+    gap: 16px !important;
+    flex-wrap: wrap !important;
+}
+
+.fact-ui .fact-headpro-actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    flex-wrap: wrap !important;
+}
+
+.fact-ui .fact-search {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    padding: 10px 14px !important;
+    border: 1px solid var(--fact-line) !important;
+    border-radius: 999px !important;
+    background: #fff !important;
+    box-shadow: var(--fact-shadow-sm) !important;
+    min-width: 320px !important;
+}
+
+.fact-ui .fact-search input {
+    border: 0 !important;
+    outline: 0 !important;
+    background: transparent !important;
+    width: 260px !important;
+    font-size: 14px !important;
+    font-family: var(--fact-font) !important;
+    color: var(--fact-text) !important;
+}
+
+/* Lucide: evita iconos gigantes o desalineados */
+.fact-ui svg.lucide {
+    width: 18px !important;
+    height: 18px !important;
+    flex: 0 0 auto !important;
+    display: block !important;
+}
+
+/* Tabsbar: que no “rompa” el layout */
+.fact-ui .fact-tabsbar {
+    display: flex !important;
+    align-items: flex-end !important;
+    justify-content: space-between !important;
+    gap: 16px !important;
+    flex-wrap: wrap !important;
+}
+
+/* Filtros: orden y wrap */
+.fact-ui .fact-filters {
+    display: flex !important;
+    align-items: flex-end !important;
+    gap: 12px !important;
+    flex-wrap: wrap !important;
+}
+
+@media (max-width: 900px) {
+    .fact-ui .fact-search {
+        min-width: 100% !important;
+    }
+    .fact-ui .fact-search input {
+        width: 100% !important;
+    }
+
+    /* opcional: deja solo un "Nueva venta" en mobile */
+    .fact-ui .fact-tabs-actions {
+        display: none !important;
+    }
+}

@@ -444,7 +444,60 @@ Route::get('/tutoriales/{tutorial}/ver', [ClienteTutorialController::class, 'wat
       ->name('contacto.send')
       ->middleware('throttle:5,1');
 
+Route::prefix('facturador')->name('facturador.')->group(function () {
+
+  Route::get('/clientes', fn () => view('cliente.facturador.registrarusuario'))
+    ->name('clientes.index');
+
+  Route::get('/productos', fn () => view('cliente.facturador.productos.index'))
+    ->name('productos.index');
+
+  Route::get('/productos/paquetes', fn () => view('cliente.facturador.productos.paquetes.index'))
+    ->name('paquetes.index');
+
+  Route::get('/productos/categorias', fn () => view('cliente.facturador.productos.categorias.index'))
+    ->name('categorias.index');
+
+  Route::get('/reportes', fn () => view('cliente.facturador.reportes.index'))
+    ->name('reportes.index');
+
+  // ✅ VENTAS (carpeta: resources/views/cliente/facturador/ventas/)
+  Route::get('/ventas', fn () => view('cliente.facturador.ventas.index'))
+    ->name('ventas.index');
+
+  Route::get('/ventas/create', fn () => view('cliente.facturador.ventas.create'))
+    ->name('ventas.create');
+
+  // ✅ si cotizaciones tiene su carpeta propia
+  Route::get('/ventas/cotizaciones', fn () => view('cliente.facturador.ventas.cotizaciones.index'))
+    ->name('cotizaciones.index');
+
+    // ✅ VENTAS (index y create) - carpeta: resources/views/cliente/facturador/ventas/
+Route::get('/ventas', fn () => view('cliente.facturador.ventas.index'))
+  ->name('ventas.index');
+
+Route::get('/ventas/create', fn () => view('cliente.facturador.ventas.create'))
+  ->name('ventas.create');
+
+  // FACTURACIÓN
+Route::get('/facturacion', fn () => view('cliente.facturador.ventas.facturacion.index'))
+  ->name('facturacion.index');
+
+Route::get('/facturacion/create', fn () => view('cliente.facturador.facturacion.create'))
+  ->name('facturacion.create');
+
+// COTIZACIONES
+Route::get('/cotizaciones', fn () => view('cliente.facturador.cotizaciones.index'))
+  ->name('cotizaciones.index');
+
+Route::get('/cotizaciones/create', fn () => view('cliente.facturador.cotizaciones.create'))
+  ->name('cotizaciones.create');
+});
     });
+
+ 
+
+    
 
 /*
 |--------------------------------------------------------------------------
@@ -456,6 +509,8 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
 
 /*
 |--------------------------------------------------------------------------

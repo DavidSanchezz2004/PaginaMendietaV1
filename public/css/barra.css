@@ -25,7 +25,13 @@ body {
 
 body {
     margin: 0;
-    font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial,
+    font-family:
+        "Poppins",
+        system-ui,
+        -apple-system,
+        Segoe UI,
+        Roboto,
+        Arial,
         sans-serif;
     background: #f3f6f6;
     color: #13140e;
@@ -138,7 +144,9 @@ body {
     font-size: 14px;
 
     border-radius: var(--radius-item);
-    transition: background 0.15s ease, transform 0.12s ease,
+    transition:
+        background 0.15s ease,
+        transform 0.12s ease,
         box-shadow 0.15s ease;
     outline: 1px solid transparent;
 }
@@ -226,7 +234,9 @@ body {
     font-size: 13px;
 
     border-radius: var(--radius-sub);
-    transition: background 0.15s ease, transform 0.12s ease,
+    transition:
+        background 0.15s ease,
+        transform 0.12s ease,
         outline-color 0.15s ease;
     outline: 1px solid transparent;
 }
@@ -289,7 +299,9 @@ body {
     font-weight: 700;
     font-size: 14px;
 
-    transition: background 0.15s ease, transform 0.12s ease,
+    transition:
+        background 0.15s ease,
+        transform 0.12s ease,
         border-color 0.15s ease;
 }
 
@@ -393,4 +405,21 @@ body {
     .content-shell {
         padding: 0;
     } /* antes 16px */
+}
+
+.facturador-preview {
+    margin-left: 18px;
+    margin-top: 6px;
+    border-left: 1px dashed rgba(0, 0, 0, 0.15);
+    padding-left: 10px;
+}
+
+.facturador-preview .item.sub {
+    font-size: 13px;
+    opacity: 0.85;
+    padding: 6px 10px;
+}
+
+.facturador-preview .item.sub:hover {
+    opacity: 1;
 }

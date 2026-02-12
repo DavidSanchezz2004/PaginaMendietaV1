@@ -1,0 +1,965 @@
+/* Encapsulado para que no choque con barra.css */
+.fact-ui {
+    /* 
+       ✨ Premium Palette (User Custom)
+       Primary: #053D38 (Deep Green)
+       Secondary: #34675C, #B2C8C1, #A3CCAA
+       Dark/Text: #13140E
+    */
+    --fact-bg: #f2f5f4; /* Light tint based on palette */
+    --fact-card: #ffffff;
+    --fact-text: #13140e; /* Dark Green/Black */
+    --fact-text-light: #5f756e; /* Muted Green-Grey */
+    --fact-line: #b2c8c1; /* Secondary Grey-Green */
+
+    --fact-primary: #053d38; /* Main Brand Color */
+    --fact-primary-hover: #34675c; /* Lighter Green */
+    --fact-primary-light: #e6f0ed; /* Very light tint of primary for backgrounds */
+
+    --fact-success: #34675c; /* Using secondary green */
+    --fact-success-bg: #a3ccaa; /* Sage green for backgrounds */
+
+    --fact-danger: #ef4444;
+    --fact-danger-bg: #fee2e2;
+
+    --fact-shadow-sm: 0 1px 2px 0 rgba(5, 61, 56, 0.05);
+    --fact-shadow:
+        0 4px 6px -1px rgba(5, 61, 56, 0.1), 0 2px 4px -2px rgba(5, 61, 56, 0.1);
+    --fact-shadow-lg:
+        0 20px 25px -5px rgba(5, 61, 56, 0.1),
+        0 8px 10px -6px rgba(5, 61, 56, 0.1);
+
+    --fact-radius: 12px;
+    --fact-font: "Inter", system-ui, -apple-system, sans-serif;
+
+    font-family: var(--fact-font);
+    background: transparent;
+    color: var(--fact-text);
+    width: 100%;
+    max-width: none;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Page Layout */
+.fact-page {
+    width: 100%;
+    padding: 24px 0;
+}
+
+.fact-page-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    padding: 0 4px;
+    flex-wrap: wrap; /* Allow wrapping on small screens */
+    gap: 16px;
+}
+
+.fact-title {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: var(--fact-text);
+}
+
+.fact-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Buttons */
+.fact-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: 9999px; /* Pill shape */
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: 1px solid transparent;
+    box-shadow: var(--fact-shadow-sm);
+}
+
+.fact-btn:active {
+    transform: scale(0.98);
+}
+
+.fact-btn-primary {
+    background: var(--fact-primary);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(5, 61, 56, 0.3); /* Glow effect adjusted */
+}
+
+.fact-btn-primary:hover {
+    background: var(--fact-primary-hover);
+    transform: translateY(-1px);
+}
+
+.fact-btn-ghost {
+    background: white;
+    border-color: var(--fact-line);
+    color: var(--fact-text);
+}
+
+.fact-btn-ghost:hover {
+    background: var(--fact-bg);
+    border-color: #cbd5e1;
+}
+
+.fact-btn-blue {
+    background: var(--fact-primary-light);
+    color: var(--fact-primary);
+    font-weight: 600;
+}
+.fact-btn-blue:hover {
+    background: #c7d2fe; /* Keep generic or adjust to palette if needed */
+}
+
+.fact-icon-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: 1px solid var(--fact-line);
+    background: #fff;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    color: var(--fact-text-light);
+    transition: all 0.2s;
+}
+.fact-icon-btn:hover {
+    background: var(--fact-bg);
+    color: var(--fact-primary);
+    border-color: var(--fact-primary-light);
+}
+
+/* Card + Table */
+.fact-card {
+    background: var(--fact-card);
+    border: 1px solid var(--fact-line);
+    border-radius: var(--fact-radius);
+    box-shadow: var(--fact-shadow);
+    overflow: hidden;
+    width: 100%;
+}
+
+.fact-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* Smooth scroll on iOS */
+}
+
+.fact-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    min-width: 900px;
+}
+
+.fact-table th {
+    text-align: left;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--fact-text-light);
+    letter-spacing: 0.05em;
+    padding: 16px 24px;
+    background: #fafafa;
+    border-bottom: 1px solid var(--fact-line);
+    white-space: nowrap;
+}
+
+.fact-th {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.fact-th-ico {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    opacity: 0.4;
+    transition: opacity 0.2s;
+    padding: 2px;
+}
+.fact-th-ico:hover {
+    opacity: 1;
+    color: var(--fact-primary);
+}
+
+.fact-table td {
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--fact-line);
+    font-size: 14px;
+    color: var(--fact-text);
+    vertical-align: middle;
+    transition: background 0.1s;
+    white-space: nowrap; /* Prevent wrap on small cells */
+}
+
+.fact-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.fact-table tbody tr:hover td {
+    background: #f8fafc;
+}
+
+.fact-strong {
+    font-weight: 600;
+    color: var(--fact-text);
+}
+
+.fact-doc {
+    font-family: "SF Mono", "Roboto Mono", monospace;
+    font-size: 13px;
+    color: var(--fact-text-light);
+    background: #f1f5f9;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.fact-muted {
+    color: var(--fact-text-light);
+}
+
+/* Badges for Type */
+.fact-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1;
+}
+.fact-badge-client {
+    background: var(--fact-success-bg);
+    color: var(--fact-primary);
+}
+.fact-badge-provider {
+    background: var(--fact-primary-light);
+    color: var(--fact-primary-hover);
+}
+
+/* Row Actions */
+.fact-td-actions {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.fact-mini {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    background: transparent;
+    cursor: pointer;
+    color: var(--fact-text-light);
+    transition: all 0.2s;
+    display: inline-grid;
+    place-items: center;
+}
+.fact-mini:hover {
+    background: var(--fact-bg);
+    color: var(--fact-primary);
+}
+
+/* Modal */
+.fact-modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    z-index: 100;
+    place-items: center;
+    padding: 16px; /* Add padding for mobile */
+}
+.fact-modal.show {
+    display: grid;
+}
+
+.fact-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(13, 15, 12, 0.6); /* Slightly darker/tinted backdrop */
+    backdrop-filter: blur(4px);
+    animation: fadeIn 0.2s ease-out;
+}
+
+.fact-modal-card {
+    position: relative;
+    width: min(600px, 100%); /* Full width on verify small screens */
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: var(--fact-shadow-lg);
+    padding: 32px;
+    z-index: 101;
+    animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    max-height: 90vh; /* Prevent overflow on verify small heights */
+    overflow-y: auto;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.fact-x {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: #f1f5f9;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: grid;
+    place-items: center;
+    font-size: 16px;
+    font-weight: 600;
+}
+.fact-x:hover {
+    background: #e2e8f0;
+    color: #0f172a;
+    transform: rotate(90deg);
+}
+
+.fact-modal-title {
+    margin: 0 0 24px;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--fact-text);
+}
+
+/* Segmented Control */
+.fact-seg-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+    background: #f1f5f9;
+    padding: 4px;
+    border-radius: 10px;
+    width: fit-content;
+}
+
+.fact-seg {
+    border: none;
+    background: transparent;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    color: var(--fact-text-light);
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.2s;
+}
+
+.fact-seg.active {
+    background: #fff;
+    color: var(--fact-primary);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.fact-check {
+    display: none;
+    margin-left: 6px;
+}
+.fact-seg.active .fact-check {
+    display: inline;
+}
+
+.fact-seg-select {
+    margin-left: auto;
+    position: relative;
+}
+.fact-seg-select select {
+    background: #fff;
+    border: 1px solid var(--fact-line);
+    border-radius: 8px;
+    padding: 8px 32px 8px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--fact-text);
+    outline: none;
+    cursor: pointer;
+}
+
+/* Form Fields */
+.fact-form {
+    display: grid;
+    gap: 20px;
+}
+
+.fact-field label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--fact-text);
+    margin-bottom: 8px;
+}
+
+.fact-req {
+    color: var(--fact-danger);
+    margin-left: 2px;
+}
+
+.fact-input,
+.fact-doc-input input {
+    width: 100%;
+    border: 1px solid var(--fact-line);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 14px;
+    outline: none;
+    background: #fff;
+    transition: all 0.2s;
+    font-family: var(--fact-font);
+}
+
+.fact-input:focus,
+.fact-doc-input input:focus {
+    border-color: var(--fact-primary);
+    box-shadow: 0 0 0 3px var(--fact-primary-light);
+}
+
+.fact-doc-input {
+    display: flex;
+}
+.fact-doc-input input {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: none;
+}
+.fact-doc-input .fact-btn-blue {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    padding: 0 20px;
+    font-size: 13px;
+}
+
+.fact-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 12px;
+    padding-top: 20px;
+    border-top: 1px solid var(--fact-line);
+}
+
+/* 📱 Mobile Responsiveness */
+@media (max-width: 640px) {
+    .fact-page-head {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .fact-actions {
+        width: 100%;
+        justify-content: flex-start; /* Or space-between if you prefer */
+    }
+
+    .fact-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Modal adjustments */
+    .fact-modal-card {
+        padding: 20px;
+        margin: 10px;
+        width: calc(100% - 20px);
+    }
+
+    .fact-seg-row {
+        width: 100%;
+        background: transparent;
+        padding: 0;
+        gap: 8px;
+    }
+
+    .fact-seg {
+        flex: 1; /* Distribute space evenly */
+        text-align: center;
+        background: #f1f5f9;
+        justify-content: center;
+        display: flex;
+    }
+
+    .fact-seg.active {
+        box-shadow: none;
+        border: 1px solid var(--fact-line);
+    }
+
+    .fact-seg-select {
+        width: 100%;
+        margin-top: 8px;
+    }
+
+    .fact-modal-actions {
+        flex-direction: column-reverse; /* Save on top on mobile? Standard is bottom, but full width */
+    }
+
+    .fact-modal-actions .fact-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* 📱 Mobile Table Cards (Replaces Scroll) */
+    .fact-table,
+    .fact-table tbody,
+    .fact-table tr,
+    .fact-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .fact-table thead {
+        display: none;
+    }
+
+    .fact-table tr {
+        margin-bottom: 16px;
+        background: #fff;
+        border: 1px solid var(--fact-line);
+        border-radius: 12px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        padding: 12px;
+    }
+
+    .fact-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: right;
+        padding: 10px 0;
+        border-bottom: 1px solid #f1f5f9;
+        font-size: 13px;
+        min-width: 0; /* Prevent flex overflow */
+    }
+
+    .fact-table td:last-child {
+        border-bottom: none;
+        justify-content: flex-end;
+        padding-top: 14px;
+    }
+
+    .fact-table td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: var(--fact-text-light);
+        text-align: left;
+        margin-right: 12px;
+        font-size: 12px;
+        text-transform: uppercase;
+        flex-shrink: 0;
+    }
+
+    /* Adjust specific cells for card view */
+    .fact-table td .fact-doc {
+        font-size: 12px;
+    }
+
+    .fact-td-actions {
+        width: 100%;
+    }
+}
+
+/* =========================
+   Responsive upgrades (PRO)
+   ========================= */
+
+/* Mejor wrapping en desktop pequeño */
+.fact-page-head {
+    gap: 14px;
+}
+
+/* Evita que el titulo se vaya gigante en móvil */
+@media (max-width: 900px) {
+    .fact-title {
+        font-size: 20px;
+    }
+}
+
+/* -------------------------
+   TABLE -> CARDS en móvil
+   ------------------------- */
+@media (max-width: 760px) {
+    /* que la tabla no fuerce min-width */
+    .fact-table {
+        min-width: 0;
+    }
+    .fact-table-wrap {
+        overflow: visible;
+    } /* ya no scroll horizontal */
+
+    /* ocultamos thead y hacemos cada fila card */
+    .fact-table thead {
+        display: none;
+    }
+
+    .fact-table,
+    .fact-table tbody,
+    .fact-table tr,
+    .fact-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .fact-table tbody {
+        padding: 10px;
+        display: grid;
+        gap: 10px;
+    }
+
+    .fact-row {
+        background: var(--fact-card);
+        border: 1px solid var(--fact-line);
+        border-radius: var(--fact-radius);
+        box-shadow: var(--fact-shadow-sm);
+        overflow: hidden;
+    }
+
+    .fact-table td {
+        padding: 12px 14px;
+        border-bottom: 1px solid rgba(178, 200, 193, 0.55);
+        white-space: normal; /* ✅ permite saltos de línea */
+    }
+
+    .fact-table td:last-child {
+        border-bottom: none;
+    }
+
+    /* labels por columna usando nth-child */
+    .fact-table td:nth-child(1)::before {
+        content: "Nombre / Razón Social";
+    }
+    .fact-table td:nth-child(2)::before {
+        content: "Documento";
+    }
+    .fact-table td:nth-child(3)::before {
+        content: "Tipo";
+    }
+    .fact-table td:nth-child(4)::before {
+        content: "Dirección";
+    }
+    .fact-table td:nth-child(5)::before {
+        content: "Teléfono";
+    }
+
+    .fact-table td::before {
+        display: block;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--fact-text-light);
+        margin-bottom: 6px;
+    }
+
+    /* primera celda estilo “título” */
+    .fact-table td.fact-strong {
+        font-size: 15px;
+    }
+    .fact-table td.fact-strong::before {
+        /* opcional: no repetir label si ya se entiende */
+        content: "Cliente / Proveedor";
+    }
+
+    /* Acciones: siempre al final y alineadas */
+    .fact-td-actions {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+        padding-top: 10px;
+    }
+}
+
+/* -------------------------
+   HEADER responsive fino
+   ------------------------- */
+@media (max-width: 640px) {
+    .fact-page {
+        padding: 16px 0;
+    }
+
+    .fact-page-head {
+        padding: 0 10px;
+    }
+
+    .fact-actions {
+        width: 100%;
+    }
+
+    .fact-btn.fact-btn-primary {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* -------------------------
+   MODAL responsive + form
+   ------------------------- */
+@media (max-width: 640px) {
+    .fact-modal {
+        padding: 10px;
+    }
+
+    .fact-modal-card {
+        padding: 18px;
+        border-radius: 14px;
+        max-height: 92vh;
+    }
+
+    .fact-modal-title {
+        font-size: 18px;
+        margin-bottom: 16px;
+    }
+
+    /* Segment row full width */
+    .fact-seg-row {
+        width: 100%;
+        background: transparent;
+        padding: 0;
+    }
+
+    .fact-seg {
+        flex: 1;
+        text-align: center;
+        background: #f1f5f9;
+        display: flex;
+        justify-content: center;
+    }
+
+    .fact-seg-select {
+        width: 100%;
+        margin-left: 0;
+    }
+    .fact-seg-select select {
+        width: 100%;
+    }
+
+    /* Documento + botón SUNAT apilado */
+    .fact-doc-input {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .fact-doc-input input {
+        border-right: 1px solid var(--fact-line);
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+    }
+
+    .fact-doc-input .fact-btn-blue {
+        width: 100%;
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
+        padding: 10px 16px;
+        justify-content: center;
+    }
+
+    /* Footer actions full width */
+    .fact-modal-actions {
+        flex-direction: column-reverse;
+        gap: 10px;
+    }
+
+    .fact-modal-actions .fact-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* -------------------------
+   Direcciones largas: mejor legibilidad
+   ------------------------- */
+.fact-muted {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+/* =========================
+   Ventas UI (Head + Filters + Status)
+   ========================= */
+
+.fact-headpro {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.fact-h1 {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+.fact-sub {
+    margin: 6px 0 0;
+    color: var(--fact-text-light);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.fact-headpro-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.fact-search {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border: 1px solid var(--fact-line);
+    border-radius: 999px;
+    background: #fff;
+    min-width: 280px;
+    box-shadow: var(--fact-shadow-sm);
+}
+
+.fact-search input {
+    border: 0;
+    outline: 0;
+    width: 260px;
+    font-size: 14px;
+    background: transparent;
+    font-family: var(--fact-font);
+    color: var(--fact-text);
+}
+
+.fact-search i {
+    width: 18px;
+    height: 18px;
+    color: var(--fact-text-light);
+}
+
+/* Filters */
+.fact-filters {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.fact-fieldmini label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--fact-text-light);
+    margin: 0 0 6px;
+}
+
+.fact-input-ico {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border: 1px solid var(--fact-line);
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: var(--fact-shadow-sm);
+}
+
+.fact-input-ico i {
+    width: 18px;
+    height: 18px;
+    color: var(--fact-text-light);
+}
+
+.fact-input-ico input {
+    border: 0;
+    outline: 0;
+    background: transparent;
+    font-family: var(--fact-font);
+    font-size: 14px;
+    color: var(--fact-text);
+}
+
+/* Status chip */
+.fact-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 12px;
+    border: 1px solid var(--fact-line);
+    background: #fff;
+}
+.fact-status.is-ok {
+    border-color: rgba(52, 103, 92, 0.35);
+    background: rgba(163, 204, 170, 0.25);
+    color: var(--fact-primary);
+}
+.fact-status.is-bad {
+    border-color: rgba(239, 68, 68, 0.35);
+    background: rgba(239, 68, 68, 0.12);
+    color: var(--fact-danger);
+}
+
+.fact-date {
+    color: var(--fact-text-light);
+    font-weight: 600;
+    font-size: 13px;
+}
+
+/* Row alt (tu blade lo usa pero no existe en CSS) */
+.fact-row-alt td {
+    background: rgba(242, 245, 244, 0.55);
+}
+
+/* Fix: DOC pill no debe romper padding de td */
+td .fact-doc {
+    display: inline-block;
+}
+
+/* ✅ IMPORTANTE: en móvil mantén tabla con scroll, NO cards */
+@media (max-width: 900px) {
+    .fact-table-wrap {
+        overflow-x: auto;
+    }
+    .fact-table {
+        min-width: 1100px;
+    } /* tu vista ventas lo necesita */
+}
+
+@media (max-width: 640px) {
+    .fact-search {
+        min-width: 100%;
+    }
+    .fact-search input {
+        width: 100%;
+    }
+}
